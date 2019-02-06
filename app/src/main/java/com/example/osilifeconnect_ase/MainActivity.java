@@ -20,13 +20,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void loginMethod(View view){
-        if(usernameTextField.getText().toString().equals("Username")) {
-            if (passwordTextField.getText().toString().equals("Password")) {
+        if(getStringField(usernameTextField).equals("Username")) {
+            if (getStringField(passwordTextField).equals("Password")) {
                 //TODO: Implement page change activity.
             }
         }
-        
+
         return;
+    }
+
+    public String getStringField(EditText text){
+        return text.getText().toString();
     }
 
 }
