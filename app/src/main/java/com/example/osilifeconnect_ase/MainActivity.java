@@ -1,9 +1,18 @@
 package com.example.osilifeconnect_ase;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.widget.Button;
+import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity {
+
+    private EditText usernameTextField = findViewById(R.id.usernameTextField);
+    private EditText passwordTextField = findViewById(R.id.passwordTextField);
+
+    private Button loginButton = findViewById(R.id.loginButton);
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
