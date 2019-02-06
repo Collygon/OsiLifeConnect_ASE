@@ -20,8 +20,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void loginMethod(View view){
-        if(getStringField(usernameTextField).equals("Username")) {
-            if (getStringField(passwordTextField).equals("Password")) {
+        if(getEditText(usernameTextField).equals("Username")) {
+            if (getEditText(passwordTextField).equals("Password")) {
                 //TODO: Implement page change activity.
             }
         }
@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         return;
     }
 
-    public String getStringField(EditText text){
+    public String getEditText(EditText text){
         return text.getText().toString();
     }
 
