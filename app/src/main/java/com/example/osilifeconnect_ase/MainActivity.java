@@ -25,7 +25,6 @@ public class MainActivity extends AppCompatActivity {
                 //TODO: Implement page change activity.
             }
         }
-
         return;
     }
 
