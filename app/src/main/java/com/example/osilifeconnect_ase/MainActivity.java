@@ -27,6 +27,8 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         return;
+        //Sal Added this
+
     }
 
     public String getEditText(EditText text){
