@@ -8,15 +8,16 @@ import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity {
 
-    private EditText usernameTextField = findViewById(R.id.usernameTextField);
-    private EditText passwordTextField = findViewById(R.id.passwordTextField);
-
-    private Button loginButton = findViewById(R.id.loginButton);
+    private EditText usernameTextField;
+    private EditText passwordTextField;
+    private Button loginButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        initializeComponents();
     }
 
     public void loginMethod(View view){
@@ -32,4 +33,35 @@ public class MainActivity extends AppCompatActivity {
         return text.getText().toString();
     }
 
+    public void initializeComponents(){
+        this.usernameTextField = findViewById(R.id.usernameTextField);
+        this.passwordTextField = findViewById(R.id.passwordTextField);
+        this.loginButton = (Button)findViewById(R.id.loginButton);
+    }
+
+    /****************
+        GETTERS
+          AND
+        SETTERS
+     **************/
+    public EditText getUsernameTextField() {
+        return usernameTextField;
+    }
+    public void setUsernameTextField(EditText usernameTextField) {
+        this.usernameTextField = usernameTextField;
+    }
+
+    public EditText getPasswordTextField() {
+        return passwordTextField;
+    }
+    public void setPasswordTextField(EditText passwordTextField) {
+        this.passwordTextField = passwordTextField;
+    }
+
+    public Button getLoginButton() {
+        return loginButton;
+    }
+    public void setLoginButton(Button loginButton) {
+        this.loginButton = loginButton;
+    }
 }
