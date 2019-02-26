@@ -9,4 +9,6 @@
     <string name="day_button">Day</string>
     <string name="week_button">Week</string>
     <string name="month_button">Month</string>
+    <string name="date_display">MM/DD/YY @ HH:MM</string>
+    <string name="weight_display">XXXXlbs</string>
 </resources>
