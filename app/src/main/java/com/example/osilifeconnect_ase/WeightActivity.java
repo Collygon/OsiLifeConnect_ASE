@@ -19,8 +19,11 @@ public class WeightActivity extends AppCompatActivity {
 
     public void getDayData(View view){
         //TODO display day data
-        TextView textView = (TextView)findViewById(R.id.textView);
-        textView.setText("Display Day");
+        TextView textView = (TextView) findViewById(R.id.textView);
+        textView.setText("2/26/19 11:22am");
+
+        textView = (TextView) findViewById(R.id.textView2);
+        textView.setText("365lbs");
     }
 
     public void getWeekData(View view) {
@@ -33,7 +36,10 @@ public class WeightActivity extends AppCompatActivity {
     }
     public void getMonthData(View view){
         //TODO display month data
-        TextView textView = (TextView)findViewById(R.id.textView);
-        textView.setText("Display Month");
+        TextView textView = (TextView) findViewById(R.id.textView);
+        textView.setText("2/26/19 11:22am");
+
+        textView = (TextView) findViewById(R.id.textView2);
+        textView.setText("365lbs");
     }
 }
