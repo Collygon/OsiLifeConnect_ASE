@@ -1,5 +1,6 @@
 package com.example.osilifeconnect_ase;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -18,16 +19,27 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         initializeComponents();
+
+        //Login Listener START
+        loginButton.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v){
+                loginMethod(v);
+            }
+        });
+        //Login Listener END
     }
 
     public void loginMethod(View view){
         if(getEditText(usernameTextField).equals("Username")) {
             if (getEditText(passwordTextField).equals("Password")) {
-                //TODO: Implement page change activity.
+                Intent dashIntent = new Intent(getApplicationContext(), dashboardActivity.class);
+
+                startActivity(dashIntent);
             }
         }
         return;
-        //Sal Added this
 
     }
 
