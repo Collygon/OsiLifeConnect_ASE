@@ -1,5 +1,6 @@
 package com.example.osilifeconnect_ase;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -18,6 +19,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         initializeComponents();
+    }
+
+    /**Cullen messing with stuff!!!!!!!!!!!!!!!!*/
+    public void goToWeight (View view){
+        Intent intent = new Intent(this, WeightActivity.class);
+        startActivity(intent);
+        //EditText editT = (EditText) findViewById(R.id.editT);
+
     }
 
     public void loginMethod(View view){
