@@ -7,6 +7,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.osilifeconnect_ase.DataModels.BloodPressureDataItem;
+import com.example.osilifeconnect_ase.DataModels.WeightScaleDataItem;
+import com.example.osilifeconnect_ase.Gateways.BloodPressureGateway;
+import com.example.osilifeconnect_ase.Gateways.WeightScaleGateway;
+
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
     private EditText usernameTextField;
@@ -19,6 +28,57 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         initializeComponents();
+
+        /** Matt's Test**/
+        readBloodPressureByMRN("all");//all - grabs all items from csv
+        readWeightScaleDataByMRN("all");
+        /** **/
+    }
+
+    /**
+     * Receives the MRN of the patient and returns a list of blood pressure readings.
+     * @param MRN The MRN of the patient
+     * @return A list of blood pressure readings for the patient
+     */
+    public List<BloodPressureDataItem> readBloodPressureByMRN(String MRN) {
+        System.out.println("Starting to print blood pressure items");
+        InputStream inputStream = getResources().openRawResource(R.raw.osi_blood_pressure_test_input);
+        BloodPressureGateway bpg = new BloodPressureGateway(inputStream);
+        List<BloodPressureDataItem> items = new ArrayList<>();
+        /** TESTING PURPOSES **/
+        if(MRN.equalsIgnoreCase("all")){
+            items = bpg.getCompleteList();
+        }else {
+            items = bpg.getListByMRN(MRN);
+        }
+        for(int i = 0; i < items.size(); i++){
+            System.out.println(items.get(i).toString());
+        }
+        System.out.println("Total number of items: " + items.size());
+        return items;
+    }
+
+    /**
+     * Receives the MRN of the patient and returns a list of weight readings.
+     * @param MRN The MRN of the patient
+     * @return A list of weight readings for the patient
+     */
+    public List<WeightScaleDataItem> readWeightScaleDataByMRN(String MRN) {
+        System.out.println("Starting to print weight scale items");
+        InputStream inputStream = getResources().openRawResource(R.raw.osi_weight_scale_test_input);
+        WeightScaleGateway wsg = new WeightScaleGateway(inputStream);
+        List<WeightScaleDataItem> items = new ArrayList<>();
+        /** TESTING PURPOSES **/
+        if(MRN.equalsIgnoreCase("all")){
+            items = wsg.getCompleteList();
+        }else{
+            items = wsg.getListByMRN(MRN);
+        }
+        for(int i = 0; i < items.size(); i++){
+            System.out.println(items.get(i).toString());
+        }
+        System.out.println("Total number of items: " + items.size());
+        return items;
     }
 
     /**Cullen messing with stuff!!!!!!!!!!!!!!!!*/
