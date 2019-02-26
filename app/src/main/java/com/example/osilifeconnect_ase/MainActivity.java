@@ -26,7 +26,6 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, WeightActivity.class);
         startActivity(intent);
         //EditText editT = (EditText) findViewById(R.id.editT);
-
     }
 
     public void loginMethod(View view){
