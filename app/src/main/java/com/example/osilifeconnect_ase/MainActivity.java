@@ -3,6 +3,7 @@ package com.example.osilifeconnect_ase;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -35,12 +36,10 @@ public class MainActivity extends AppCompatActivity {
         if(getEditText(usernameTextField).equals("Username")) {
             if (getEditText(passwordTextField).equals("Password")) {
                 Intent dashIntent = new Intent(getApplicationContext(), dashboardActivity.class);
-
+                Log.d("DASH INTENT", "Intent Generated");
                 startActivity(dashIntent);
             }
         }
-        return;
-
     }
 
     public String getEditText(EditText text){
