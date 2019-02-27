@@ -3,6 +3,7 @@ package com.example.osilifeconnect_ase;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,10 +16,22 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d("MAIN", "Starting App...");
         super.onCreate(savedInstanceState);
+        Log.d("MAIN", "Setting content view.");
         setContentView(R.layout.activity_main);
-
+        Log.d("MAIN", "Content set. Initializing.");
         initializeComponents();
+
+        //Login Listener START
+        loginButton.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v){
+                loginMethod(v);
+            }
+        });
+        //Login Listener END
     }
 
     /**Cullen messing with stuff!!!!!!!!!!!!!!!!*/
@@ -36,12 +49,11 @@ public class MainActivity extends AppCompatActivity {
     public void loginMethod(View view){
         if(getEditText(usernameTextField).equals("Username")) {
             if (getEditText(passwordTextField).equals("Password")) {
-                //TODO: Implement page change activity.
+                Intent dashIntent = new Intent(this, dashboardActivity.class);
+                Log.d("DASH INTENT", "Intent Generated");
+                startActivity(dashIntent);
             }
         }
-        return;
-        //Sal Added this
-
     }
 
     public String getEditText(EditText text){
@@ -51,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
     public void initializeComponents(){
         this.usernameTextField = findViewById(R.id.usernameTextField);
         this.passwordTextField = findViewById(R.id.passwordTextField);
-        this.loginButton = (Button)findViewById(R.id.loginButton);
+        this.loginButton = findViewById(R.id.loginButton);
     }
 
     /****************
