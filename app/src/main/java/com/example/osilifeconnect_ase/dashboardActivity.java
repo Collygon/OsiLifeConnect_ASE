@@ -1,5 +1,6 @@
 package com.example.osilifeconnect_ase;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -13,6 +14,7 @@ import android.widget.Toolbar;
 
 public class dashboardActivity extends AppCompatActivity {
 
+    private Context context;
     private NavigationView navigationView;
     private DrawerLayout cDrawerLayout;
     private Toolbar toolbar;
@@ -27,14 +29,13 @@ public class dashboardActivity extends AppCompatActivity {
         Log.d("DASHBOARD", "End of dashboard creation.");
         initializeComponents();
         
-        
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
                     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                         menuItem.setChecked(true);
                         Log.d("MENU ITEM", "Selected" + menuItem.getTitle().toString());
-                        singletonPackage.getInstance().switchActivity(menuItem.getTitle().toString(), this);
+                        singletonPackage.getInstance().switchActivity(menuItem.getTitle().toString(), getApplicationContext());
                         menuItem.setChecked(false);
                         cDrawerLayout.closeDrawers();
                         return true;
