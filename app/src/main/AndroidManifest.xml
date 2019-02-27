@@ -8,7 +8,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat.Light.DarkActionBar" >
+        android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
+        <activity android:name=".UnitsActivity"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -17,18 +18,18 @@
             </intent-filter>
         </activity>
         <activity
-                android:name=".WeightActivity"
-                android:parentActivityName=".MainActivity">
+            android:name=".WeightActivity"
+            android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT-ACTIVITY"
-                android:value=".MainActivity"/>
+                android:value=".MainActivity" />
         </activity>
         <activity
             android:name=".dashboardActivity"
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT-ACTIVITY"
-                android:value=".MainActivity"/>
+                android:value=".MainActivity" />
         </activity>
     </application>
 
