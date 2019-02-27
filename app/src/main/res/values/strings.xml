@@ -5,8 +5,8 @@
     <string name="welcome">Welcome!</string>
     <string name="username_email">Username/Email</string>
     <string name="password">Password</string>
-    <string name="contact_us">Contact Us</string>
-    <string name="devices">Devices</string>
-    <string name="settings">Settings</string>
-    <string name="my_account">My Account</string>
+    <string name="editText">Test</string>
+    <string name="day_button">Day</string>
+    <string name="week_button">Week</string>
+    <string name="month_button">Month</string>
 </resources>

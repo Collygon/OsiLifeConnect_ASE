@@ -34,6 +34,13 @@ public class MainActivity extends AppCompatActivity {
         //Login Listener END
     }
 
+    /**Cullen messing with stuff!!!!!!!!!!!!!!!!*/
+    public void goToWeight (View view){
+        Intent intent = new Intent(this, WeightActivity.class);
+        startActivity(intent);
+        //EditText editT = (EditText) findViewById(R.id.editT);
+    }
+
     public void loginMethod(View view){
         if(getEditText(usernameTextField).equals("Username")) {
             if (getEditText(passwordTextField).equals("Password")) {
