@@ -28,6 +28,11 @@ public class MainActivity extends AppCompatActivity {
         //EditText editT = (EditText) findViewById(R.id.editT);
     }
 
+    public void goToBlood(View view){
+        Intent intent = new Intent(this, BloodPressureActivity.class);
+        startActivity(intent);
+    }
+
     public void loginMethod(View view){
         if(getEditText(usernameTextField).equals("Username")) {
             if (getEditText(passwordTextField).equals("Password")) {

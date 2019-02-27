@@ -13,6 +13,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
+        android:autofillHints=""
         android:ems="10"
         android:hint="@string/password"
         android:inputType="textPassword"
@@ -22,7 +23,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.445"
-        android:autofillHints="" tools:targetApi="o"/>
+        tools:targetApi="o" />
 
     <EditText
         android:id="@+id/usernameTextField"
@@ -31,6 +32,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
+        android:autofillHints=""
         android:ems="10"
         android:hint="@string/username_email"
         android:inputType="textPersonName"
@@ -38,7 +40,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        android:autofillHints="" tools:targetApi="o"/>
+        tools:targetApi="o" />
 
     <Button
         android:id="@+id/loginButton"
@@ -53,11 +55,13 @@
         android:onClick="loginMethod"
         android:text="@string/login"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium.Inverse"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/button4"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/passwordTextField"
-        app:layout_constraintVertical_bias="0.39" />
+        app:layout_constraintVertical_bias="0.39"
+        app:layout_constraintVertical_chainStyle="packed" />
 
     <TextView
         android:id="@+id/welcomeTextView"
@@ -97,15 +101,29 @@
         android:id="@+id/button4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="147dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="149dp"
-        android:layout_marginBottom="42dp"
+        android:layout_marginStart="162dp"
+        android:layout_marginEnd="161dp"
+        android:layout_marginBottom="8dp"
         android:onClick="goToWeight"
         android:text="Weight"
+        app:layout_constraintBottom_toTopOf="@+id/button5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loginButton" />
+
+    <Button
+        android:id="@+id/button5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:onClick="goToBlood"
+        android:text="Blood Pressure"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loginButton" />
+        app:layout_constraintTop_toBottomOf="@+id/button4" />
 
 </android.support.constraint.ConstraintLayout>
