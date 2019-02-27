@@ -1,5 +1,9 @@
 package com.example.osilifeconnect_ase;
 
+import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
+
 public class singletonPackage {
 
     private static singletonPackage instance = null;
@@ -10,19 +14,29 @@ public class singletonPackage {
         return instance;
     }
 
-    public void switchActivity(String title){
+    public void switchActivity(String title, Context context){
+        Intent intent;
         switch(title) {
             case "Weight":
-                //TODO: Intent to weight activity
+                intent = new Intent(context, WeightActivity.class);
+                Log.d("SINGLETON INTENT", "Weight Intent Generated");
+                context.startActivity(intent);
                 break;
             case "Devices":
-                //TODO: Intent to devices activity
+                intent = new Intent(context, dashboardActivity.class);
+                Log.d("SINGLETON INTENT", "Devices Intent Generated");
+                context.startActivity(intent);
                 break;
             case "Contact Us":
-                //TODO: Intent to contact us activity
+                intent = new Intent(context, dashboardActivity.class);
+                Log.d("SINGLETON INTENT", "Contact Us Intent Generated");
+                context.startActivity(intent);
                 break;
             case "Settings":
                 //TODO: Intent to settings activity
+                intent = new Intent(context, dashboardActivity.class);
+                Log.d("SINGLETON INTENT", "Settings Intent Generated");
+                context.startActivity(intent);
                 break;
         }
     }
