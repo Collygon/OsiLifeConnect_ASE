@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        Log.d("MAIN", "COntent set. Initializing.");
         initializeComponents();
 
         //Login Listener START
@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     public void loginMethod(View view){
         if(getEditText(usernameTextField).equals("Username")) {
             if (getEditText(passwordTextField).equals("Password")) {
-                Intent dashIntent = new Intent(getApplicationContext(), dashboardActivity.class);
+                Intent dashIntent = new Intent(this, dashboardActivity.class);
                 Log.d("DASH INTENT", "Intent Generated");
                 startActivity(dashIntent);
             }
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
     public void initializeComponents(){
         this.usernameTextField = findViewById(R.id.usernameTextField);
         this.passwordTextField = findViewById(R.id.passwordTextField);
-        this.loginButton = (Button)findViewById(R.id.loginButton);
+        this.loginButton = findViewById(R.id.loginButton);
     }
 
     /****************
