@@ -33,7 +33,6 @@ public class singletonPackage {
                 context.startActivity(intent);
                 break;
             case "Settings":
-                //TODO: Intent to settings activity
                 intent = new Intent(context, dashboardActivity.class);
                 Log.d("SINGLETON INTENT", "Settings Intent Generated");
                 context.startActivity(intent);
