@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Log.d("MAIN", "Setting content view.");
         setContentView(R.layout.activity_main);
-        Log.d("MAIN", "COntent set. Initializing.");
+        Log.d("MAIN", "Content set. Initializing.");
         initializeComponents();
 
         //Login Listener START
