@@ -16,7 +16,9 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d("MAIN", "Starting App...");
         super.onCreate(savedInstanceState);
+        Log.d("MAIN", "Setting content view.");
         setContentView(R.layout.activity_main);
         Log.d("MAIN", "COntent set. Initializing.");
         initializeComponents();
