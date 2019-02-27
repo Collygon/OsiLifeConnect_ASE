@@ -29,7 +29,6 @@ public class dashboardActivity extends AppCompatActivity {
                         menuItem.setChecked(true);
                         cDrawerLayout.closeDrawers();
 
-
                         return true;
                     }
                 }
