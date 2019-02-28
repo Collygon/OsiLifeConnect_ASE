@@ -19,7 +19,7 @@ public class BloodPressureActivity extends AppCompatActivity {
         setContentView(R.layout.activity_blood_pressure);
 
         String[] dayData = {"DayData", "Much", "Data", "Very", "Blood", "Pressure", "WOW"};
-        list = (RecyclerView) findViewById(R.id.recyclerView);
+        list = findViewById(R.id.recyclerView);
         list.setHasFixedSize(true);
 
         layoutManager = new LinearLayoutManager(this);
