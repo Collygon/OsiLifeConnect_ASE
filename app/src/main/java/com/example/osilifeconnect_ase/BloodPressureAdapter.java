@@ -2,6 +2,7 @@ package com.example.osilifeconnect_ase;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
@@ -15,11 +16,13 @@ public class BloodPressureAdapter extends RecyclerView.Adapter<BloodPressureAdap
     public class MyViewHolder extends RecyclerView.ViewHolder{
 
         // each data item is just a string in this case
+        //View itemView;
         TextView data;
 
-        public MyViewHolder(TextView view){
+        public MyViewHolder(View view){
             super(view);
-            data = view;
+            //itemView = view;
+            data = view.findViewById(R.id.textView1);
         }
 
     }
@@ -33,8 +36,7 @@ public class BloodPressureAdapter extends RecyclerView.Adapter<BloodPressureAdap
     @Override
     public BloodPressureAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // create a new view
-        TextView v = (TextView) LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.recycler_view_item, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_view_item, parent, false);
         MyViewHolder vh = new MyViewHolder(v);
         return vh;
     }
