@@ -3,6 +3,7 @@ package com.example.osilifeconnect_ase;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,7 +14,6 @@ import com.example.osilifeconnect_ase.Gateways.BloodPressureGateway;
 import com.example.osilifeconnect_ase.Gateways.WeightScaleGateway;
 
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -24,15 +24,56 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d("MAIN", "Starting App...");
         super.onCreate(savedInstanceState);
+        Log.d("MAIN", "Setting content view.");
         setContentView(R.layout.activity_main);
-
+        Log.d("MAIN", "Content set. Initializing.");
         initializeComponents();
+        //Login Listener START
+        loginButton.setOnClickListener(new View.OnClickListener(){
 
-        /** Matt's Test**/
-        readBloodPressureByMRN("all");//all - grabs all items from csv
-        readWeightScaleDataByMRN("all");
-        /** **/
+            @Override
+            public void onClick(View v){
+                loginMethod(v);
+            }
+        });
+        //Login Listener END
+        //      Testing read methods
+        //readWeightScaleDataByMRN("6789");
+        //readBloodPressureByMRN("6789");
+    }
+
+    /**Cullen messing with stuff!!!!!!!!!!!!!!!!*/
+    public void goToWeight (View view){
+        Intent intent = new Intent(this, WeightActivity.class);
+        startActivity(intent);
+        //EditText editT = (EditText) findViewById(R.id.editT);
+    }
+
+    public void goToBlood(View view){
+        Intent intent = new Intent(this, BloodPressureActivity.class);
+        startActivity(intent);
+    }
+
+    public void loginMethod(View view){
+        if(getEditText(usernameTextField).equals("Username")) {
+            if (getEditText(passwordTextField).equals("Password")) {
+                Intent dashIntent = new Intent(this, dashboardActivity.class);
+                Log.d("DASH INTENT", "Intent Generated");
+                startActivity(dashIntent);
+            }
+        }
+    }
+
+    public String getEditText(EditText text){
+        return text.getText().toString();
+    }
+
+    public void initializeComponents(){
+        this.usernameTextField = findViewById(R.id.usernameTextField);
+        this.passwordTextField = findViewById(R.id.passwordTextField);
+        this.loginButton = findViewById(R.id.loginButton);
     }
 
     /**
@@ -41,21 +82,20 @@ public class MainActivity extends AppCompatActivity {
      * @return A list of blood pressure readings for the patient
      */
     public List<BloodPressureDataItem> readBloodPressureByMRN(String MRN) {
-        System.out.println("Starting to print blood pressure items");
+        //System.out.println("Starting to print blood pressure items");
         InputStream inputStream = getResources().openRawResource(R.raw.osi_blood_pressure_test_input);
         BloodPressureGateway bpg = new BloodPressureGateway(inputStream);
-        List<BloodPressureDataItem> items = new ArrayList<>();
-        /** TESTING PURPOSES **/
-        if(MRN.equalsIgnoreCase("all")){
-            items = bpg.getCompleteList();
-        }else {
-            items = bpg.getListByMRN(MRN);
-        }
+        /**     To Test Output !!!
+        List<BloodPressureDataItem> items = bpg.getListByMRN(MRN);
+        //List<BloodPressureDataItem> items = bpg.getCompleteList();
         for(int i = 0; i < items.size(); i++){
             System.out.println(items.get(i).toString());
         }
         System.out.println("Total number of items: " + items.size());
+
         return items;
+        // **/
+        return bpg.getListByMRN(MRN);
     }
 
     /**
@@ -67,46 +107,16 @@ public class MainActivity extends AppCompatActivity {
         System.out.println("Starting to print weight scale items");
         InputStream inputStream = getResources().openRawResource(R.raw.osi_weight_scale_test_input);
         WeightScaleGateway wsg = new WeightScaleGateway(inputStream);
-        List<WeightScaleDataItem> items = new ArrayList<>();
-        /** TESTING PURPOSES **/
-        if(MRN.equalsIgnoreCase("all")){
-            items = wsg.getCompleteList();
-        }else{
-            items = wsg.getListByMRN(MRN);
-        }
-        for(int i = 0; i < items.size(); i++){
+        /**     To Test Output !!!
+        List<WeightScaleDataItem> items = wsg.getListByMRN(MRN);
+        //List<WeightScaleDataItem> items  = wsg.getCompleteList();
+        for (int i = 0; i < items.size(); i++) {
             System.out.println(items.get(i).toString());
         }
         System.out.println("Total number of items: " + items.size());
         return items;
-    }
-
-    /**Cullen messing with stuff!!!!!!!!!!!!!!!!*/
-    public void goToWeight (View view){
-        Intent intent = new Intent(this, WeightActivity.class);
-        startActivity(intent);
-        //EditText editT = (EditText) findViewById(R.id.editT);
-    }
-
-    public void loginMethod(View view){
-        if(getEditText(usernameTextField).equals("Username")) {
-            if (getEditText(passwordTextField).equals("Password")) {
-                //TODO: Implement page change activity.
-            }
-        }
-        return;
-        //Sal Added this
-
-    }
-
-    public String getEditText(EditText text){
-        return text.getText().toString();
-    }
-
-    public void initializeComponents(){
-        this.usernameTextField = findViewById(R.id.usernameTextField);
-        this.passwordTextField = findViewById(R.id.passwordTextField);
-        this.loginButton = (Button)findViewById(R.id.loginButton);
+         //**/
+        return wsg.getListByMRN(MRN);
     }
 
     /****************
