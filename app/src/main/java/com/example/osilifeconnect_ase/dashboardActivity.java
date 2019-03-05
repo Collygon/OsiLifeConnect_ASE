@@ -1,5 +1,6 @@
 package com.example.osilifeconnect_ase;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -13,7 +14,11 @@ import android.widget.Toolbar;
 
 public class dashboardActivity extends AppCompatActivity {
 
+    private Context context;
+    private NavigationView navigationView;
     private DrawerLayout cDrawerLayout;
+    private Toolbar toolbar;
+    private ActionBar actionbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,13 +27,7 @@ public class dashboardActivity extends AppCompatActivity {
         Log.d("DASHBOARD", "Instance State completed.");
         setContentView(R.layout.activity_dashboard);
         Log.d("DASHBOARD", "End of dashboard creation.");
-        cDrawerLayout = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        ActionBar actionbar = getSupportActionBar();
-        actionbar.setDisplayHomeAsUpEnabled(true);
-        actionbar.setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);
-        
+        initializeComponents();
         
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
@@ -36,9 +35,9 @@ public class dashboardActivity extends AppCompatActivity {
                     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                         menuItem.setChecked(true);
                         Log.d("MENU ITEM", "Selected" + menuItem.getTitle().toString());
-                        singletonPackage.getInstance().switchActivity(menuItem.getTitle().toString());
-                        cDrawerLayout.closeDrawers();
+                        singletonPackage.getInstance().switchActivity(menuItem.getTitle().toString(), getApplicationContext());
                         menuItem.setChecked(false);
+                        cDrawerLayout.closeDrawers();
                         return true;
                     }
                 }
@@ -53,5 +52,14 @@ public class dashboardActivity extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void initializeComponents(){
+        this.cDrawerLayout = findViewById(R.id.drawer_layout);
+        this.navigationView = findViewById(R.id.nav_view);
+        this.toolbar = findViewById(R.id.toolbar);
+        this.actionbar = getSupportActionBar();
+        this.actionbar.setDisplayHomeAsUpEnabled(true);
+        this.actionbar.setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);
     }
 }

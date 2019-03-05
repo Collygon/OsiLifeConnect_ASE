@@ -16,4 +16,5 @@
     <string name="weight">Weight</string>
     <string name="date_display">MM/DD/YY @ HH:MM</string>
     <string name="weight_display">XXXXlbs</string>
+    <string name="weights">Weights</string>
 </resources>
