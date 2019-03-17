@@ -11,10 +11,15 @@
     tools:context=".dashboardActivity">
 
     <!-- Layout to contain contents of main body of screen (drawer will slide over this) -->
+
     <FrameLayout
         android:id="@+id/content_frame"
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
@@ -25,12 +30,26 @@
 
     </FrameLayout>
     <!-- Container for contents of drawer - use NavigationView to make configuration easier -->
+
+    <!-- <FrameLayout
+        android:id="@+id/fragment_frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+
+    </FrameLayout> -->
+
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
-        app:menu="@menu/navigation_menu"/>
+        app:menu="@menu/navigation_menu">
+
+    </android.support.design.widget.NavigationView>
 
 </android.support.v4.widget.DrawerLayout>
