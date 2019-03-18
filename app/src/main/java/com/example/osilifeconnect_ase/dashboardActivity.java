@@ -28,7 +28,7 @@ public class dashboardActivity extends AppCompatActivity {
         setContentView(R.layout.activity_dashboard);
         Log.d("DASHBOARD", "End of dashboard creation.");
         cDrawerLayout = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_devices);
+        NavigationView navigationView = findViewById(R.id.nav_view);
         Toolbar toolbar = findViewById(R.id.toolbar);
         ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);

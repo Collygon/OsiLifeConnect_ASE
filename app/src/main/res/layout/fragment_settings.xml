@@ -3,4 +3,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <Button
+        android:id="@+id/unitsButton"
+        android:layout_width="match_parent"
+        android:layout_height="189dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="0dp"
+        android:text="@string/units"
+        android:textSize="36sp" />
+
+    <Button
+        android:id="@+id/configButton"
+        android:layout_width="match_parent"
+        android:layout_height="189dp"
+        android:layout_below="@+id/unitsButton"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="3dp"
+        android:layout_marginBottom="350dp"
+        android:text="@string/configuration"
+        android:textSize="36sp" />
+
 </RelativeLayout>
