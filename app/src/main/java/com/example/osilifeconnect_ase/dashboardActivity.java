@@ -17,6 +17,7 @@ public class dashboardActivity extends AppCompatActivity {
 
     private Context context;
     private DrawerLayout cDrawerLayout;
+    private boolean bSwitchCheck;
 
 
     @Override
@@ -40,11 +41,12 @@ public class dashboardActivity extends AppCompatActivity {
                     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                         menuItem.setChecked(true);
                         Log.d("MENU ITEM", "Selected" + menuItem.getTitle().toString());
-                        //intent = singletonPackage.getInstance().switchActivity(menuItem.getTitle().toString(), getApplicationContext());
                         menuItem.setChecked(false);
                         cDrawerLayout.closeDrawers();
-                        //startActivity(intent);
-                        return false;
+                        bSwitchCheck = switchFragment(menuItem);
+                        if(!bSwitchCheck)
+                            return false;
+                        return true;
                     }
                 }
         );
