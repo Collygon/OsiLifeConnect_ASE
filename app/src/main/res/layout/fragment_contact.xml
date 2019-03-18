@@ -6,61 +6,40 @@
 
     <TextView
         android:id="@+id/locationTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="68dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="9dp"
-        android:layout_marginTop="367dp"
-        android:layout_marginEnd="7dp"
-        android:layout_marginBottom="296dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
         android:text="@string/osi_location"
-        android:textSize="24sp" />
+        android:textAlignment="center"
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/websiteTextView"
-        android:layout_width="216dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="480dp"
-        android:layout_marginEnd="95dp"
-        android:layout_marginBottom="216dp"
+        android:layout_below="@id/locationTextView"
+        android:layout_centerHorizontal="true"
         android:text="@string/osi_website"
-        android:textSize="24sp" />
+        android:textAlignment="center"
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/phoneTextView"
-        android:layout_width="176dp"
-        android:layout_height="59dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="114dp"
-        android:layout_marginTop="545dp"
-        android:layout_marginEnd="121dp"
-        android:layout_marginBottom="127dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/websiteTextView"
+        android:layout_centerHorizontal="true"
         android:text="@string/osi_phone"
-        android:textSize="24sp" />
+        android:textAlignment="center"
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/emailTextView"
-        android:layout_width="268dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="49dp"
-        android:layout_marginTop="605dp"
-        android:layout_marginEnd="94dp"
-        android:layout_marginBottom="36dp"
+        android:layout_below="@id/phoneTextView"
+        android:layout_centerHorizontal="true"
         android:text="@string/osi_email"
-        android:textSize="24sp" />
+        android:textAlignment="center"
+        android:textSize="20sp" />
 </RelativeLayout>
