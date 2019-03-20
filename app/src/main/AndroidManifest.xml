@@ -33,12 +33,11 @@
                 android:name="android.support.PARENT-ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-        <activity
-            android:name=".BloodPressureActivity"
-            android:parentActivityName=".MainActivity">
+        <activity android:name=".BloodPressureActivity"
+            android:parentActivityName=".dashboardActivity">
             <meta-data
                 android:name="android.support.PARENT-ACTIVITY"
-                android:value=".MainActivity" />
+                android:value=".dashboardActivity" />
         </activity>
     </application>
 

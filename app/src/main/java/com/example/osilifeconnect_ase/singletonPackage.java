@@ -14,30 +14,31 @@ public class singletonPackage {
         return instance;
     }
 
-    public void switchActivity(String title, Context context){
+    public Intent switchActivity(String title, Context context){
         Intent intent;
         switch(title) {
             case "Weight":
                 intent = new Intent(context, WeightActivity.class);
                 Log.d("SINGLETON INTENT", "Weight Intent Generated");
-                context.startActivity(intent);
-                break;
+                return intent;
             case "Devices":
                 intent = new Intent(context, dashboardActivity.class);
                 Log.d("SINGLETON INTENT", "Devices Intent Generated");
-                context.startActivity(intent);
-                break;
+                return intent;
             case "Contact Us":
                 intent = new Intent(context, dashboardActivity.class);
                 Log.d("SINGLETON INTENT", "Contact Us Intent Generated");
-                context.startActivity(intent);
-                break;
+                return intent;
             case "Settings":
-                intent = new Intent(context, dashboardActivity.class);
+                intent = new Intent(context, SettingsActivity.class);
                 Log.d("SINGLETON INTENT", "Settings Intent Generated");
-                context.startActivity(intent);
-                break;
+                return intent;
+            case "Blood Pressure":
+                intent = new Intent(context, BloodPressureActivity.class);
+                Log.d("SINGLETON INTENT", "Settings Intent Generated");
+                return intent;
         }
+        return null;
     }
 
 }
