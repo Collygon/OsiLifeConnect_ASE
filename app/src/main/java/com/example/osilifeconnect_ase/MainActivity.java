@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.example.osilifeconnect_ase.DataModels.BloodPressureDataItem;
 import com.example.osilifeconnect_ase.DataModels.WeightScaleDataItem;
@@ -20,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
 
     private EditText usernameTextField;
     private EditText passwordTextField;
+    private TextView alertText;
     private Button loginButton;
 
     @Override
@@ -29,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
         Log.d("MAIN", "Setting content view.");
         setContentView(R.layout.activity_main);
         Log.d("MAIN", "Content set. Initializing.");
+        alertText = findViewById(R.id.loginAlertText);
+        //alertText.setVisibility(View.GONE);
         initializeComponents();
         //Login Listener START
         loginButton.setOnClickListener(new View.OnClickListener(){
@@ -63,7 +67,11 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("DASH INTENT", "Intent Generated");
                 startActivity(dashIntent);
             }
+            //else
+                //alertText.setVisibility(View.VISIBLE);
         }
+        //else
+            //alertText.setVisibility(View.VISIBLE);
     }
 
     public String getEditText(EditText text){

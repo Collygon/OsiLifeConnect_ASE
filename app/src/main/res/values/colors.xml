@@ -6,4 +6,5 @@
     <color name="dashbuttonColor">#0F525252</color>
     <color name="lineColor">#2B000000</color>
     <color name="versionColor">#5A161616</color>
+    <color name="colorAlert">#960000</color>
 </resources>
