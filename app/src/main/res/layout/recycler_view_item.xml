@@ -6,13 +6,14 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-  <TextView
-      android:id="@+id/bloodDateView"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="@string/date_display"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/bloodDateView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/date_display"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/systolicView"
@@ -53,24 +54,24 @@
         app:layout_constraintStart_toEndOf="@+id/diastolicView"
         app:layout_constraintTop_toBottomOf="@id/bloodDateView" />
 
-  <TextView
-      android:id="@+id/systolicNum"
-      android:layout_width="66dp"
-      android:layout_height="wrap_content"
-      android:layout_marginStart="16dp"
-      android:layout_marginTop="8dp"
-      android:layout_marginBottom="8dp"
-      android:ems="10"
-      app:layout_constraintBottom_toTopOf="@+id/systolicView"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/bloodDateView"
-      android:textColor="#ff0000" />
+    <TextView
+        android:id="@+id/systolicNum"
+        android:layout_width="48dp"
+        android:layout_height="18dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:ems="10"
+        android:textColor="#ff0000"
+        app:layout_constraintBottom_toTopOf="@+id/systolicView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bloodDateView" />
 
     <TextView
         android:id="@+id/diastolicNum"
         android:layout_width="66dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="70dp"
+        android:layout_marginStart="87dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:ems="10"
@@ -84,7 +85,7 @@
         android:id="@+id/pulseNum"
         android:layout_width="66dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="96dp"
+        android:layout_marginStart="95dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:ems="10"
@@ -93,4 +94,13 @@
         app:layout_constraintStart_toEndOf="@+id/diastolicNum"
         app:layout_constraintTop_toBottomOf="@+id/bloodDateView"
         app:layout_constraintVertical_bias="0.523" />
+
+    <TextView
+        android:id="@+id/mmhgView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="19dp"
+        android:text="mmHg"
+        app:layout_constraintStart_toEndOf="@+id/systolicNum"
+        app:layout_constraintTop_toBottomOf="@+id/bloodDateView" />
 </android.support.constraint.ConstraintLayout>
