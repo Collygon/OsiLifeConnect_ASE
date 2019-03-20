@@ -6,6 +6,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.osilifeconnect_ase.DataModels.dummyDataWeight;
+
+import java.util.Date;
+
 
 public class WeightActivity extends AppCompatActivity {
 
@@ -36,10 +40,14 @@ public class WeightActivity extends AppCompatActivity {
     }
     public void getMonthData(View view){
         //TODO display month data
+        Date date = new Date(2019,11,12,11,22);
+        dummyDataWeight monthWeight = new dummyDataWeight(1234);
+        monthWeight.setWeightLbs(111.21);
+        monthWeight.setDate(date);
         TextView textView = (TextView) findViewById(R.id.textView);
-        textView.setText("2/26/19 11:22am");
+        textView.setText(monthWeight.getDateString());
 
         textView = (TextView) findViewById(R.id.textView2);
-        textView.setText("365lbs");
+        textView.setText(Double.toString(monthWeight.getWeightLbs()));
     }
 }
