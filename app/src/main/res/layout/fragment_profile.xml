@@ -5,11 +5,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/profileTextView"
+    <ImageView
+        android:id="@+id/imageView2"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_centerVertical="true"
-        android:text="@string/username"
-        android:textSize="24sp" />
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/profileImage"
+        android:layout_below="@id/spacingTextView"
+        android:scaleType="center"
+        app:srcCompat="@mipmap/ic_launcher" />
+
+    <TextView
+        android:id="@+id/spacingTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 </RelativeLayout>

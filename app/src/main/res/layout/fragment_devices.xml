@@ -3,4 +3,41 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <Button
+        android:id="@+id/dashbuttonBlood"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:layout_below="@+id/dashboardLineTwo"
+        android:background="@color/dashbuttonColor"
+        android:fontFamily="sans-serif-medium"
+        android:text="@string/blood_pressure"
+        android:textSize="30sp" />
+
+    <Button
+        android:id="@+id/dashbuttonWeight"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:layout_below="@+id/dashboardLineOne"
+        android:background="@color/dashbuttonColor"
+        android:backgroundTintMode="src_in"
+        android:fontFamily="sans-serif-medium"
+        android:text="@string/weight"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/dashboardLineOne"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:layout_below="@+id/dashbuttonBlood"
+        android:text="@string/dLine"
+        android:textAlignment="center"
+        android:textColor="@color/lineColor" />
+
+    <TextView
+        android:id="@+id/dashboardLineTwo"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:text="@string/dLine"
+        android:textAlignment="center"
+        android:textColor="@color/lineColor" />
 </RelativeLayout>
