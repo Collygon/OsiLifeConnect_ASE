@@ -8,6 +8,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.osilifeconnect_ase.DataModels.BloodPressureDataItem;
+import com.example.osilifeconnect_ase.DataModels.WeightScaleDataItem;
+import com.example.osilifeconnect_ase.Gateways.BloodPressureGateway;
+import com.example.osilifeconnect_ase.Gateways.WeightScaleGateway;
+
+import java.io.InputStream;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
     private EditText usernameTextField;
@@ -22,7 +30,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Log.d("MAIN", "Content set. Initializing.");
         initializeComponents();
-
         //Login Listener START
         loginButton.setOnClickListener(new View.OnClickListener(){
 
@@ -32,6 +39,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         //Login Listener END
+        //      Testing read methods
+        //readWeightScaleDataByMRN("6789");
+        //readBloodPressureByMRN("6789");
     }
 
     /**Cullen messing with stuff!!!!!!!!!!!!!!!!*/
@@ -64,6 +74,49 @@ public class MainActivity extends AppCompatActivity {
         this.usernameTextField = findViewById(R.id.usernameTextField);
         this.passwordTextField = findViewById(R.id.passwordTextField);
         this.loginButton = findViewById(R.id.loginButton);
+    }
+
+    /**
+     * Receives the MRN of the patient and returns a list of blood pressure readings.
+     * @param MRN The MRN of the patient
+     * @return A list of blood pressure readings for the patient
+     */
+    public List<BloodPressureDataItem> readBloodPressureByMRN(String MRN) {
+        //System.out.println("Starting to print blood pressure items");
+        InputStream inputStream = getResources().openRawResource(R.raw.osi_blood_pressure_test_input);
+        BloodPressureGateway bpg = new BloodPressureGateway(inputStream);
+        /**     To Test Output !!!
+        List<BloodPressureDataItem> items = bpg.getListByMRN(MRN);
+        //List<BloodPressureDataItem> items = bpg.getCompleteList();
+        for(int i = 0; i < items.size(); i++){
+            System.out.println(items.get(i).toString());
+        }
+        System.out.println("Total number of items: " + items.size());
+
+        return items;
+        // **/
+        return bpg.getListByMRN(MRN);
+    }
+
+    /**
+     * Receives the MRN of the patient and returns a list of weight readings.
+     * @param MRN The MRN of the patient
+     * @return A list of weight readings for the patient
+     */
+    public List<WeightScaleDataItem> readWeightScaleDataByMRN(String MRN) {
+        System.out.println("Starting to print weight scale items");
+        InputStream inputStream = getResources().openRawResource(R.raw.osi_weight_scale_test_input);
+        WeightScaleGateway wsg = new WeightScaleGateway(inputStream);
+        /**     To Test Output !!!
+        List<WeightScaleDataItem> items = wsg.getListByMRN(MRN);
+        //List<WeightScaleDataItem> items  = wsg.getCompleteList();
+        for (int i = 0; i < items.size(); i++) {
+            System.out.println(items.get(i).toString());
+        }
+        System.out.println("Total number of items: " + items.size());
+        return items;
+         //**/
+        return wsg.getListByMRN(MRN);
     }
 
     /****************
