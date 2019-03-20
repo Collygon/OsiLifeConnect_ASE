@@ -17,8 +17,6 @@
     <string name="date_display">MM/DD/YY @ HH:MM</string>
     <string name="weight_display">XXXXlbs</string>
     <string name="weights">Weights</string>
-    <string name="date_display">MM/DD/YY @ HH:MM</string>
-    <string name="weight_display">XXXXlbs</string>
     <string name="blood_pressure">Blood Pressure</string>
     <string name="osi_location">San Antonio, Texas Sandau-Ste. 210 San Antonio, Texas 78216</string>
     <string name="osi_website">https://osilife.com</string>
