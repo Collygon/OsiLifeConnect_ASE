@@ -17,8 +17,13 @@ public class DevicesFragment extends Fragment{
         return inflater.inflate(R.layout.fragment_devices, null);
     }
 
-    public void goToWeight (View view){
+    public void goToWeight (){
         Intent intent = new Intent(DevicesFragment.this.getActivity(), WeightActivity.class);
+        startActivity(intent);
+    }
+
+    public void goToBlood(){
+        Intent intent = new Intent(DevicesFragment.this.getActivity(), BloodPressureActivity.class);
         startActivity(intent);
     }
 }

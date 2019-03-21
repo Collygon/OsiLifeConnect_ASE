@@ -47,9 +47,6 @@ public class MainActivity extends AppCompatActivity {
         //readBloodPressureByMRN("6789");
     }
 
-    /**Cullen messing with stuff!!!!!!!!!!!!!!!!*/
-
-
     public void goToBlood(View view){
         Intent intent = new Intent(this, BloodPressureActivity.class);
         startActivity(intent);
