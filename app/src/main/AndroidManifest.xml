@@ -10,7 +10,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
         <activity android:name=".ConfigurationActivity"></activity>
-        <activity android:name=".SettingsActivity" />
         <activity android:name=".UnitsActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
