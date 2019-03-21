@@ -8,21 +8,43 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 public class DevicesFragment extends Fragment{
+
+
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_devices, null);
+        View view = inflater.inflate(R.layout.fragment_devices, container, false);
+
+        Button bpButton = view.findViewById(R.id.dashbuttonBlood);
+        Button wButton = view.findViewById(R.id.dashbuttonWeight);
+
+        bpButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                goToBlood(v);
+            }
+        });
+
+        wButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                goToWeight(v);
+            }
+        });
+
+        return view;
     }
 
-    public void goToWeight (){
+    public void goToWeight (View view){
         Intent intent = new Intent(DevicesFragment.this.getActivity(), WeightActivity.class);
         startActivity(intent);
     }
 
-    public void goToBlood(){
+    public void goToBlood(View view){
         Intent intent = new Intent(DevicesFragment.this.getActivity(), BloodPressureActivity.class);
         startActivity(intent);
     }
