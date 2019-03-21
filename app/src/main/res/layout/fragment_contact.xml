@@ -8,38 +8,76 @@
         android:id="@+id/locationTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/spacingTextOne"
         android:layout_centerHorizontal="true"
+        android:drawableStart="@drawable/caricon"
+        android:drawablePadding="15dp"
         android:text="@string/osi_location"
-        android:textAlignment="center"
+        android:textAlignment="viewStart"
         android:textSize="20sp" />
 
     <TextView
         android:id="@+id/websiteTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/locationTextView"
+        android:layout_below="@id/spacingTextTwo"
         android:layout_centerHorizontal="true"
+        android:drawableStart="@drawable/interneticon"
+        android:drawablePadding="15dp"
         android:text="@string/osi_website"
-        android:textAlignment="center"
+        android:textAlignment="textStart"
         android:textSize="20sp" />
 
     <TextView
         android:id="@+id/phoneTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/websiteTextView"
+        android:layout_below="@id/spacingTextThree"
         android:layout_centerHorizontal="true"
+        android:drawableStart="@drawable/phoneicon"
+        android:drawablePadding="15dp"
         android:text="@string/osi_phone"
-        android:textAlignment="center"
+        android:textAlignment="textStart"
         android:textSize="20sp" />
 
     <TextView
         android:id="@+id/emailTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/phoneTextView"
+        android:layout_below="@id/spacingTextFour"
         android:layout_centerHorizontal="true"
+        android:drawableStart="@drawable/emailicon"
+        android:drawablePadding="15dp"
         android:text="@string/osi_email"
-        android:textAlignment="center"
+        android:textAlignment="textStart"
         android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/spacingTextOne"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/osiMap"/>
+
+    <TextView
+        android:id="@+id/spacingTextTwo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/locationTextView"/>
+
+    <TextView
+        android:id="@+id/spacingTextThree"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/websiteTextView"/>
+
+    <TextView
+        android:id="@+id/spacingTextFour"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/phoneTextView"/>
+
+    <com.google.android.gms.maps.MapView
+        android:id="@+id/osiMap"
+        android:layout_width="match_parent"
+        android:layout_height="350dp" />
 </RelativeLayout>

@@ -6,17 +6,55 @@
     <Button
         android:id="@+id/unitsButton"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_height="75dp"
+        android:layout_below="@+id/settingsLineOne"
+        android:background="@color/dashbuttonColor"
         android:text="@string/units"
         android:textSize="36sp" />
 
     <Button
         android:id="@+id/configButton"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/unitsButton"
+        android:layout_height="75dp"
+        android:layout_below="@id/settingsLineTwo"
+        android:background="@color/dashbuttonColor"
         android:text="@string/configuration"
+        android:textSize="36sp" />
+
+    <TextView
+        android:id="@+id/settingsLineOne"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:text="@string/dLine"
+        android:textAlignment="center"
+        android:textColor="@color/lineColor" />
+
+    <TextView
+        android:id="@+id/settingsLineTwo"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:layout_below="@id/unitsButton"
+        android:text="@string/dLine"
+        android:textAlignment="center"
+        android:textColor="@color/lineColor" />
+
+    <TextView
+        android:id="@+id/settingsLineThree"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:layout_below="@id/configButton"
+        android:text="@string/dLine"
+        android:textAlignment="center"
+        android:textColor="@color/lineColor" />
+
+    <TextView
+        android:id="@+id/settingsVersionNumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/settingsLineThree"
+        android:text="@string/version_0_4_1"
+        android:textAlignment="center"
+        android:textColor="@color/versionColor"
         android:textSize="36sp" />
 
 </RelativeLayout>

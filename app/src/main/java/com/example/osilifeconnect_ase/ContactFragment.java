@@ -10,9 +10,12 @@ import android.view.ViewGroup;
 
 public class ContactFragment extends Fragment{
 
+
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_contact, null);
+        View view = inflater.inflate(R.layout.fragment_contact, container, false);
+        return view;
     }
 }

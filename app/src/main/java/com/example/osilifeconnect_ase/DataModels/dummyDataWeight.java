@@ -1,6 +1,4 @@
 package com.example.osilifeconnect_ase.DataModels;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class dummyDataWeight extends dummyDataSuperClass {
@@ -12,7 +10,7 @@ public class dummyDataWeight extends dummyDataSuperClass {
         super(MRN);
 
     }
-    public void setWeightLbs(double weight){
+    public void setWeightLbs(int weight){
         this.weightLbs=weight;
     }
 
@@ -20,20 +18,15 @@ public class dummyDataWeight extends dummyDataSuperClass {
         return this.weightLbs;
     }
 
-    public void setWeightKgs(double weight){
+    public void setWeightKgs(int weight){
         this.weightKgs=weight * .45359237;
     }
 
     public double getWeightKgs(){return this.weightKgs;}
 
     public Date getDate(){
-        this.date = new Date();
+        this.date=new Date();
         return this.date;
-    }
-
-    public String getDateString() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yy hh:mm");
-        return dateFormat.format(date);
     }
 
 }

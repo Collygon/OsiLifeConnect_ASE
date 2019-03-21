@@ -1,14 +1,19 @@
 package com.example.osilifeconnect_ase;
 
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.osilifeconnect_ase.DataModels.dummyBloodPressureData;
+
+import java.util.List;
+
 public class BloodPressureAdapter extends RecyclerView.Adapter<BloodPressureAdapter.MyViewHolder> {
 
-    private String[] dataSet;
+    private List<dummyBloodPressureData> dataSet;
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -17,18 +22,32 @@ public class BloodPressureAdapter extends RecyclerView.Adapter<BloodPressureAdap
 
         // each data item is just a string in this case
         //View itemView;
-        TextView data;
+        TextView date;
+        TextView systolic;
+        TextView diastolic;
+        TextView pulse;
+        TextView sysNum;
+        TextView diaNum;
+        TextView pulseNum;
+        ConstraintLayout constraintLayout;
 
         public MyViewHolder(View view){
             super(view);
             //itemView = view;
-            data = view.findViewById(R.id.textView1);
+            date = view.findViewById(R.id.bloodDateView);
+            systolic = view.findViewById(R.id.systolicView);
+            diastolic = view.findViewById(R.id.diastolicView);
+            pulse = view.findViewById(R.id.pulseView);
+            sysNum = view.findViewById(R.id.systolicNum);
+            diaNum = view.findViewById(R.id.diastolicNum);
+            pulseNum = view.findViewById(R.id.pulseNum);
+            constraintLayout = view.findViewById(R.id.constraintLayout);
         }
 
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public BloodPressureAdapter(String[] myDataset) {
+    public BloodPressureAdapter(List<dummyBloodPressureData> myDataset) {
         dataSet = myDataset;
     }
 
@@ -46,14 +65,17 @@ public class BloodPressureAdapter extends RecyclerView.Adapter<BloodPressureAdap
     public void onBindViewHolder(MyViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        holder.data.setText(dataSet[position]);
+        holder.date.setText(dataSet.get(position).getDate().toString());
+        holder.sysNum.setText(String.valueOf(dataSet.get(position).getSystolic()));
+        holder.diaNum.setText(String.valueOf(dataSet.get(position).getDynostolic()));
+        holder.pulseNum.setText(String.valueOf(dataSet.get(position).getPulseRate()));
 
     }
 
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return dataSet.length;
+        return dataSet.size();
     }
 
 }

@@ -11,6 +11,8 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toolbar;
 
 public class dashboardActivity extends AppCompatActivity {
@@ -33,6 +35,7 @@ public class dashboardActivity extends AppCompatActivity {
         ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);
+        final TextView welcomeText = (TextView) findViewById(R.id.welcomeTextView);
 
         Log.d("DASHBOARD", "Initializing listener...");
         navigationView.setNavigationItemSelectedListener(
@@ -43,6 +46,7 @@ public class dashboardActivity extends AppCompatActivity {
                         Log.d("MENU ITEM", "Selected" + menuItem.getTitle().toString());
                         menuItem.setChecked(false);
                         cDrawerLayout.closeDrawers();
+                        welcomeText.setVisibility(View.GONE);
                         bSwitchCheck = switchFragment(menuItem);
                         if(!bSwitchCheck)
                             return false;
