@@ -23,6 +23,7 @@ public class DevicesFragment extends Fragment{
         Button wButton = view.findViewById(R.id.dashbuttonWeight);
 
         bpButton.setOnClickListener(new View.OnClickListener(){
+
             @Override
             public void onClick(View v){
                 goToBlood(v);
