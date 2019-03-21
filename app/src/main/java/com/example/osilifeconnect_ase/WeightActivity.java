@@ -1,23 +1,15 @@
 package com.example.osilifeconnect_ase;
 
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.TextView;
 
 import com.example.osilifeconnect_ase.DataModels.dummyDataWeight;
 
-import java.time.Month;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-
-import com.example.osilifeconnect_ase.DataModels.dummyDataWeight;
-
-import java.util.Date;
 
 
 public class WeightActivity extends AppCompatActivity {
@@ -65,7 +57,7 @@ public class WeightActivity extends AppCompatActivity {
 
         monthList.add(weightObj3);
 
-        recView = (RecyclerView)findViewById(R.id.my_recycler_view);
+        recView = findViewById(R.id.my_recycler_view);
         recView.setHasFixedSize(true);
 
         layoutManager = new LinearLayoutManager(this);
