@@ -21,17 +21,13 @@
         </activity>
         <activity
             android:name=".WeightActivity"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName=".dashboardActivity">
             <meta-data
                 android:name="android.support.PARENT-ACTIVITY"
-                android:value=".MainActivity" />
+                android:value=".dashboardActivity" />
         </activity>
         <activity
-            android:name=".dashboardActivity"
-            android:parentActivityName=".MainActivity">
-            <meta-data
-                android:name="android.support.PARENT-ACTIVITY"
-                android:value=".MainActivity" />
+            android:name=".dashboardActivity">
         </activity>
         <activity android:name=".BloodPressureActivity"
             android:parentActivityName=".dashboardActivity">
