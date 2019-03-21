@@ -15,6 +15,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.example.osilifeconnect_ase.DataModels.dummyDataWeight;
+
+import java.util.Date;
+
 
 public class WeightActivity extends AppCompatActivity {
     private RecyclerView recView;
