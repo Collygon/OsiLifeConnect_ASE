@@ -29,6 +29,7 @@ public class dummyDataWeight extends dummyDataSuperClass {
         this.date = date;
     }
     public Date getDate(){
+        this.date = new Date();
         return this.date;
     }
 
