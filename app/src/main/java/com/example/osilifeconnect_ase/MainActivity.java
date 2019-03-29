@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
 import com.example.osilifeconnect_ase.DataModels.BloodPressureDataItem;
 import com.example.osilifeconnect_ase.DataModels.WeightScaleDataItem;
 import com.example.osilifeconnect_ase.Gateways.BloodPressureGateway;
@@ -46,13 +45,6 @@ public class MainActivity extends AppCompatActivity {
         //      Testing read methods
         //readWeightScaleDataByMRN("6789");
         //readBloodPressureByMRN("6789");
-    }
-
-    /**Cullen messing with stuff!!!!!!!!!!!!!!!!*/
-    public void goToWeight (View view){
-        Intent intent = new Intent(this, WeightActivity.class);
-        startActivity(intent);
-        //EditText editT = (EditText) findViewById(R.id.editT);
     }
 
     public void goToBlood(View view){
