@@ -1,5 +1,6 @@
 package com.example.osilifeconnect_ase;
 
+import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
 import com.example.osilifeconnect_ase.DataModels.BloodPressureDataItem;
 import com.example.osilifeconnect_ase.DataModels.WeightScaleDataItem;
 import com.example.osilifeconnect_ase.Gateways.BloodPressureGateway;
@@ -22,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText passwordTextField;
     private TextView alertText;
     private Button loginButton;
+    private int loginAttempts = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Log.d("MAIN", "Content set. Initializing.");
         alertText = findViewById(R.id.loginAlertText);
-        //alertText.setVisibility(View.GONE);
+        alertText.setVisibility(View.GONE);
         initializeComponents();
         //Login Listener START
         loginButton.setOnClickListener(new View.OnClickListener(){
@@ -42,38 +45,43 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         //Login Listener END
-        //      Testing read methods
-        //readWeightScaleDataByMRN("6789");
-        //readBloodPressureByMRN("6789");
-    }
-
-    public void goToBlood(View view){
-        Intent intent = new Intent(this, BloodPressureActivity.class);
-        startActivity(intent);
     }
 
     public void loginMethod(View view){
-        if(getEditText(usernameTextField).equals("Username")) {
-            if (getEditText(passwordTextField).equals("Password")) {
+        if(testCredentials()){
                 Intent dashIntent = new Intent(this, dashboardActivity.class);
                 Log.d("DASH INTENT", "Intent Generated");
                 startActivity(dashIntent);
-            }
-            //else
-                //alertText.setVisibility(View.VISIBLE);
         }
-        //else
-            //alertText.setVisibility(View.VISIBLE);
+        else if(loginAttempts >= 1){
+            anmLoginAttempt();
+            loginAttempts++;
+        }
+        else {
+            alertText.setVisibility(View.VISIBLE);
+            loginAttempts++;
+        }
     }
 
     public String getEditText(EditText text){
         return text.getText().toString();
     }
 
+    public boolean testCredentials(){
+        return getEditText(usernameTextField).equals("Username") && getEditText(passwordTextField).equals("Password");
+    }
+
     public void initializeComponents(){
         this.usernameTextField = findViewById(R.id.usernameTextField);
         this.passwordTextField = findViewById(R.id.passwordTextField);
         this.loginButton = findViewById(R.id.loginButton);
+    }
+
+    public void anmLoginAttempt() {
+        ObjectAnimator bounce = ObjectAnimator.ofFloat(alertText, "translationY", 0, -25, 0);
+        bounce.setStartDelay(10);
+        bounce.setDuration(300);
+        bounce.start();
     }
 
     /**

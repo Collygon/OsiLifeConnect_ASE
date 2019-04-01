@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#19008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorPrimary">#423fff</color>
+    <color name="colorPrimaryDark">#1cd141</color>
+    <color name="colorAccent">#1bd1c7</color>
     <color name="dashbuttonColor">#0F525252</color>
     <color name="lineColor">#2B000000</color>
-    <color name="versionColor">#5A161616</color>
+    <color name="versionColor">#2B000000</color>
     <color name="colorAlert">#960000</color>
 </resources>
