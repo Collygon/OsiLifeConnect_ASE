@@ -1,6 +1,10 @@
 package com.example.osilifeconnect_ase;
 
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothManager;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -8,6 +12,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.example.osilifeconnect_ase.DataModels.BloodPressureDataItem;
 import com.example.osilifeconnect_ase.DataModels.WeightScaleDataItem;
 import com.example.osilifeconnect_ase.Gateways.BloodPressureGateway;
@@ -25,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         Log.d("MAIN", "Starting App...");
         super.onCreate(savedInstanceState);
         Log.d("MAIN", "Setting content view.");
@@ -46,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         //readWeightScaleDataByMRN("6789");
         //readBloodPressureByMRN("6789");
     }
+
 
     public void goToBlood(View view){
         Intent intent = new Intent(this, BloodPressureActivity.class);
