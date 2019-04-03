@@ -1,7 +1,10 @@
 package com.example.osilifeconnect_ase;
 
 import android.animation.ObjectAnimator;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -51,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
         if(testCredentials()){
                 Intent dashIntent = new Intent(this, dashboardActivity.class);
                 Log.d("DASH INTENT", "Intent Generated");
+                notificationPackage.getInstance().loginNotify(this);
                 startActivity(dashIntent);
         }
         else if(loginAttempts >= 1){
@@ -75,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
         this.usernameTextField = findViewById(R.id.usernameTextField);
         this.passwordTextField = findViewById(R.id.passwordTextField);
         this.loginButton = findViewById(R.id.loginButton);
+        createNotificationChannel();
     }
 
     public void anmLoginAttempt() {
@@ -82,6 +87,18 @@ public class MainActivity extends AppCompatActivity {
         bounce.setStartDelay(10);
         bounce.setDuration(300);
         bounce.start();
+    }
+
+    private void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "notifySequence";
+            String description = "notifyDescription";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel(notificationPackage.getInstance().getChannelId(), name, importance);
+            channel.setDescription(description);
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
     }
 
     /**

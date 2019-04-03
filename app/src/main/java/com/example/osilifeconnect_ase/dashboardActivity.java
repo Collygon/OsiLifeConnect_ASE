@@ -72,6 +72,7 @@ public class dashboardActivity extends AppCompatActivity {
 
             getSupportFragmentManager()
                     .beginTransaction()
+                    .setCustomAnimations(R.anim.enter_left_to_right, R.anim.exit_right_to_left)
                     .replace(R.id.content_frame, fragment)
                     .commit();
 

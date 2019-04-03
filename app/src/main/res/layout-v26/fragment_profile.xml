@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/profileImageView"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_below="@id/spacingTextViewOne"
+        android:layout_centerInParent="true"
+        android:contentDescription="@string/profileImage"
+        android:cropToPadding="true"
+        android:scaleType="fitStart"
+        app:srcCompat="@drawable/profile_empty" />
+
+    <TextView
+        android:id="@+id/spacingTextViewOne"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/spacingTextViewTwo"
+        android:layout_width="match_parent"
+        android:layout_height="15dp"
+        android:layout_below="@id/profileImageView"/>
+
+    <TextView
+        android:id="@+id/spacingTextViewThree"
+        android:layout_width="match_parent"
+        android:layout_height="15dp"
+        android:layout_below="@id/profileEmailText" />
+
+    <TextView
+        android:id="@+id/spacingTextViewFour"
+        android:layout_width="match_parent"
+        android:layout_height="15dp"
+        android:layout_below="@id/profilePhysicianTextview" />
+
+    <TextView
+        android:id="@+id/spacingTextViewFive"
+        android:layout_width="match_parent"
+        android:layout_height="15dp"
+        android:layout_below="@id/profilePhysicianEmail" />
+
+    <TextView
+        android:id="@+id/spacingTextViewSix"
+        android:layout_width="match_parent"
+        android:layout_height="15dp"
+        android:layout_below="@id/profilePhysicianPhone" />
+
+    <EditText
+        android:id="@+id/profileEmailText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/spacingTextViewTwo"
+        android:layout_toEndOf="@id/profileEmail"
+        android:ems="10"
+        android:hint="@string/no_email_set"
+        android:inputType="textEmailAddress"
+        android:textSize="18sp"
+        android:autofillHints="" />
+
+    <TextView
+        android:id="@+id/profileEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/spacingTextViewTwo"
+        android:text="@string/email"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/profilePhysician"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/spacingTextViewThree"
+        android:text="@string/physician"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/profilePhysicianTextview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/spacingTextViewThree"
+        android:layout_toEndOf="@id/profilePhysician"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/profilePhysicianEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/spacingTextViewFour"
+        android:drawableStart="@drawable/emailicon"
+        android:drawablePadding="15dp"
+        android:text=""
+        android:textAlignment="textStart"
+        android:textSize="20sp"/>
+
+    <TextView
+        android:id="@+id/profilePhysicianPhone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/spacingTextViewFive"
+        android:drawableStart="@drawable/phoneicon"
+        android:drawablePadding="15dp"
+        android:text=""
+        android:textAlignment="textStart"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/profilePhysicianAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/spacingTextViewSix"
+        android:drawableStart="@drawable/caricon"
+        android:drawablePadding="15dp"
+        android:text=""
+        android:textAlignment="textStart"
+        android:textSize="20sp" />
+</RelativeLayout>

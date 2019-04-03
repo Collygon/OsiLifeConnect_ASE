@@ -29,4 +29,7 @@
     <string name="version_0_4_1">Version 0.4.1</string>
     <string name="welcome">Welcome!</string>
     <string name="incorrect_username_password">Incorrect Username/Password</string>
+    <string name="email">Email:</string>
+    <string name="no_email_set">No Email Set</string>
+    <string name="physician">Physician:</string>
 </resources>
