@@ -4,6 +4,9 @@ import android.app.ListActivity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothManager;
+import android.bluetooth.le.BluetoothLeScanner;
+import android.bluetooth.le.ScanCallback;
+import android.bluetooth.le.ScanResult;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -21,6 +24,7 @@ import android.widget.Toast;
  */
 public class DeviceScanActivity extends ListActivity {
     private BluetoothAdapter bluetoothAdapter;
+    private BluetoothLeScanner scanner;
     private boolean mScanning;
     private Handler handler;
     private LeDeviceListAdapter leDeviceListAdapter;
@@ -55,42 +59,53 @@ public class DeviceScanActivity extends ListActivity {
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        if(requestCode == REQUEST_ENABLE_BT){
+            if(resultCode == RESULT_OK){
+                Toast.makeText(this, "Bluetooth is now enabled", Toast.LENGTH_SHORT).show();
+            }
+            else if(resultCode == RESULT_CANCELED){
+                Toast.makeText(this, "User did not enable Bluetooth or an error occurred", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
 
     //...
     // Device scan callback.
-    private BluetoothAdapter.LeScanCallback leScanCallback =
-            new BluetoothAdapter.LeScanCallback() {
-                @Override
-                public void onLeScan(final BluetoothDevice device, int rssi,
-                                     byte[] scanRecord) {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            leDeviceListAdapter.addDevice(device);
-                            leDeviceListAdapter.notifyDataSetChanged();
-                        }
-                    });
-                }
-            };
+    private ScanCallback leScanCallback = new ScanCallback() {
+        @Override
+        public void onScanResult(int callbackType, ScanResult result) {
+            super.onScanResult(callbackType, result);
+
+            if(result == null || result.getDevice() == null)
+                return;
+
+            leDeviceListAdapter.addDevice(result.getDevice());
+            leDeviceListAdapter.notifyDataSetChanged();
+        }
+    };
 
 
     //...
     private void scanLeDevice(final boolean enable){
         if(enable){
+            scanner = bluetoothAdapter.getBluetoothLeScanner();
             //stops scanning after a pre-defined scan period
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     mScanning = false;
-                    bluetoothAdapter.stopLeScan(leScanCallback);
+                    scanner.stopScan(leScanCallback);
                 }
             }, SCAN_PERIOD);
 
             mScanning = true;
-            bluetoothAdapter.startLeScan(leScanCallback);
+            scanner.startScan(leScanCallback);
         }else{
             mScanning = false;
-            bluetoothAdapter.stopLeScan(leScanCallback);
+            scanner.stopScan(leScanCallback);
         }
         //...
     }
