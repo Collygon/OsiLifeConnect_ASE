@@ -29,8 +29,8 @@ public class DeviceControlActivity extends Activity {
     private ArrayList<ArrayList<BluetoothGattCharacteristic>> mGattCharacteristics =
             new ArrayList<ArrayList<BluetoothGattCharacteristic>>();
     private boolean connected = false;
-    private final String LIST_NAME = "NAME";
-    private final String LIST_UUID = "UUID";
+    public static final String LIST_NAME = "NAME";
+    public static final String LIST_UUID = "UUID";
     private boolean mConnected = false;
 
     // Demonstrates how to iterate through the supported GATT

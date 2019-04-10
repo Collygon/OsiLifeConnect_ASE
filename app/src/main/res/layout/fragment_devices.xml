@@ -4,6 +4,18 @@
     android:layout_height="match_parent">
 
     <Button
+        android:id="@+id/dashbuttonScan"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:layout_below="@+id/dashbuttonWeight"
+        android:layout_marginTop="90dp"
+        android:background="@color/dashbuttonColor"
+        android:backgroundTintMode="src_in"
+        android:fontFamily="sans-serif-medium"
+        android:text="Scan for Devices"
+        android:textSize="30sp" />
+
+    <Button
         android:id="@+id/dashbuttonBlood"
         android:layout_width="match_parent"
         android:layout_height="75dp"

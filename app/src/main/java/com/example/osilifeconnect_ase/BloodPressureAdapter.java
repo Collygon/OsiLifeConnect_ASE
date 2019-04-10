@@ -55,7 +55,7 @@ public class BloodPressureAdapter extends RecyclerView.Adapter<BloodPressureAdap
     @Override
     public BloodPressureAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // create a new view
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_view_item, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.listitem_blood_pressure, parent, false);
         MyViewHolder vh = new MyViewHolder(v);
         return vh;
     }

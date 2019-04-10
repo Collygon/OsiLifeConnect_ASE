@@ -21,6 +21,7 @@ public class DevicesFragment extends Fragment{
 
         Button bpButton = view.findViewById(R.id.dashbuttonBlood);
         Button wButton = view.findViewById(R.id.dashbuttonWeight);
+        Button sButton = view.findViewById(R.id.dashbuttonScan);
 
         bpButton.setOnClickListener(new View.OnClickListener(){
 
@@ -37,6 +38,13 @@ public class DevicesFragment extends Fragment{
             }
         });
 
+        sButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                scan();
+            }
+        });
+
         return view;
     }
 
@@ -47,6 +55,11 @@ public class DevicesFragment extends Fragment{
 
     public void goToBlood(View view){
         Intent intent = new Intent(DevicesFragment.this.getActivity(), BloodPressureActivity.class);
+        startActivity(intent);
+    }
+
+    public void scan(){
+        Intent intent = new Intent(DevicesFragment.this.getActivity(), DeviceScanActivity.class);
         startActivity(intent);
     }
 }
