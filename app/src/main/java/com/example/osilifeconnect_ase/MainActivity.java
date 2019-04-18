@@ -222,7 +222,6 @@ public class MainActivity extends AppCompatActivity {
                             String loginID = p.getString("login_id");
                             String loginPW = p.getString("login_pw");
 
-                            // adding contact to contact list
                             User.getUser().setMrn(mrn);
                             User.getUser().setLoginID(loginID);
                             User.getUser().setLoginPW(loginPW);
