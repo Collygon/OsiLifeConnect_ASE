@@ -5,37 +5,30 @@ import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
+/**
+ * Represents data to be read from a sensor.
+ */
 public class SensorDataItem {
-    public static int iNull = -9999;
-    public static double dNull = -9999.0;
-    public static String sNull = "NULL";
+    protected static double dNull = -9999.0;
+    protected static String sNull = "NULL";
     private String MRN;
-    private String recordFName;
-    private String recordLName;
+    private String loginID;
     private String DeviceType;
     private String Manufacturer;
     private String modelNumber;
     private String SerialNumber;
-    private String postingDateTime;
-    private String readingDateTime;
-    //private Timestamp postingDateTime;
-    //private Timestamp readingDateTime;
+    //private String readingDateTime;
+    private Timestamp readingDateTime;
 
-    public SensorDataItem(String MRN, String recordFName, String recordLName, String deviceType,
-                          String manufacturer, String modelNumber, String serialNumber, String postingDateTime, String readingDateTime) {
-        this.setMRN(MRN);
-        this.recordFName = recordFName;
-        this.recordLName = recordLName;
-        DeviceType = deviceType;
-        Manufacturer = manufacturer;
+    public SensorDataItem(String MRN, String loginID, String deviceType, String manufacturer,
+                          String modelNumber, String serialNumber, Timestamp readingDateTime) {
+        this.MRN = MRN;
+        this.loginID = loginID;
+        this.DeviceType = deviceType;
+        this.Manufacturer = manufacturer;
         this.modelNumber = modelNumber;
-        SerialNumber = serialNumber;
-        this.setPostingDateTime(postingDateTime);
-        this.setReadingDateTime(readingDateTime);
-    }
-
-    public int getiNull() {
-        return iNull;
+        this.SerialNumber = serialNumber;
+        this.readingDateTime = readingDateTime;
     }
 
     public double getdNull() {
@@ -51,30 +44,15 @@ public class SensorDataItem {
     }
 
     public void setMRN(String MRN) {
-        int iTest;
-        String newMRN = MRN;
-        try{
-            iTest = Integer.parseInt(MRN);
-        } catch(Exception e){
-            newMRN = sNull;
-        }
-        this.MRN = newMRN;
+        this.MRN = MRN;
     }
 
-    public String getRecordFName() {
-        return recordFName;
+    public String getLoginID() {
+        return loginID;
     }
 
-    public void setRecordFName(String recordFName) {
-        this.recordFName = recordFName;
-    }
-
-    public String getRecordLName() {
-        return recordLName;
-    }
-
-    public void setRecordLName(String recordLName) {
-        this.recordLName = recordLName;
+    public void setLoginID(String loginID) {
+        this.loginID = loginID;
     }
 
     public String getDeviceType() {
@@ -109,37 +87,22 @@ public class SensorDataItem {
         SerialNumber = serialNumber;
     }
 
-    public String getPostingDateTime() {
-        return postingDateTime;
-    }
-
-    public void setPostingDateTime(String postingDateTime) {
-        //this.postingDateTime = Timestamp.valueOf(postingDateTime);
-        this.postingDateTime = postingDateTime;
-
-
-    }
-
-    public String getReadingDateTime() {
+    public Timestamp getReadingDateTime() {
         return readingDateTime;
     }
 
-    public void setReadingDateTime(String readingDateTime) {
-        //this.ReadingDateTime = Timestamp.valueOf(readingDateTime);
+    public void setReadingDateTime(Timestamp readingDateTime) {
         this.readingDateTime = readingDateTime;
     }
 
     @Override
     public String toString() {
         return  "MRN='" + MRN + '\'' +
-                ", recordFName='" + recordFName + '\'' +
-                ", recordLName='" + recordLName + '\'' +
                 ", DeviceType='" + DeviceType + '\'' +
                 ", Manufacturer='" + Manufacturer + '\'' +
                 ", modelNumber='" + modelNumber + '\'' +
                 ", SerialNumber='" + SerialNumber + '\'' +
-                ", postingDateTime='" + postingDateTime + '\'' +
-                ", ReadingDateTime='" + readingDateTime + '\'' +
+                ", ReadingDateTime='" + readingDateTime.toString() + '\'' +
                 '}';
     }
 }

@@ -5,6 +5,7 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Intent;
 import android.os.Build;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -12,13 +13,28 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.example.osilifeconnect_ase.DataModels.BloodPressureDataItem;
-import com.example.osilifeconnect_ase.DataModels.WeightScaleDataItem;
-import com.example.osilifeconnect_ase.Gateways.BloodPressureGateway;
-import com.example.osilifeconnect_ase.Gateways.WeightScaleGateway;
+import com.example.osilifeconnect_ase.DataModels.User;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.util.HashMap;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -51,13 +67,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void loginMethod(View view){
-        if(testCredentials()){
-                Intent dashIntent = new Intent(this, dashboardActivity.class);
-                Log.d("DASH INTENT", "Intent Generated");
-                notificationPackage.getInstance().loginNotify(this);
-                startActivity(dashIntent);
-        }
-        else if(loginAttempts >= 1){
+        String username = usernameTextField.getText().toString();
+        String password = passwordTextField.getText().toString();
+        new LoginTask().execute(username, password);
+    }
+
+    public void LogIn(boolean success){
+        if(success) {
+            Intent dashIntent = new Intent(this, dashboardActivity.class);
+            Log.d("DASH INTENT", "Intent Generated");
+            notificationPackage.getInstance().loginNotify(this);
+            startActivity(dashIntent);
+        }else if(loginAttempts >= 1){
             anmLoginAttempt();
             loginAttempts++;
         }
@@ -65,6 +86,18 @@ public class MainActivity extends AppCompatActivity {
             alertText.setVisibility(View.VISIBLE);
             loginAttempts++;
         }
+    }
+
+    /**Cullen messing with stuff!!!!!!!!!!!!!!!!*/
+    public void goToWeight (View view){
+        Intent intent = new Intent(this, WeightActivity.class);
+        startActivity(intent);
+        //EditText editT = (EditText) findViewById(R.id.editT);
+    }
+
+    public void goToBlood(View view){
+        Intent intent = new Intent(this, BloodPressureActivity.class);
+        startActivity(intent);
     }
 
     public String getEditText(EditText text){
@@ -101,48 +134,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    /**
-     * Receives the MRN of the patient and returns a list of blood pressure readings.
-     * @param MRN The MRN of the patient
-     * @return A list of blood pressure readings for the patient
-     */
-    public List<BloodPressureDataItem> readBloodPressureByMRN(String MRN) {
-        //System.out.println("Starting to print blood pressure items");
-        InputStream inputStream = getResources().openRawResource(R.raw.osi_blood_pressure_test_input);
-        BloodPressureGateway bpg = new BloodPressureGateway(inputStream);
-        /**     To Test Output !!!
-        List<BloodPressureDataItem> items = bpg.getListByMRN(MRN);
-        //List<BloodPressureDataItem> items = bpg.getCompleteList();
-        for(int i = 0; i < items.size(); i++){
-            System.out.println(items.get(i).toString());
-        }
-        System.out.println("Total number of items: " + items.size());
-
-        return items;
-        // **/
-        return bpg.getListByMRN(MRN);
-    }
-
-    /**
-     * Receives the MRN of the patient and returns a list of weight readings.
-     * @param MRN The MRN of the patient
-     * @return A list of weight readings for the patient
-     */
-    public List<WeightScaleDataItem> readWeightScaleDataByMRN(String MRN) {
-        System.out.println("Starting to print weight scale items");
-        InputStream inputStream = getResources().openRawResource(R.raw.osi_weight_scale_test_input);
-        WeightScaleGateway wsg = new WeightScaleGateway(inputStream);
-        /**     To Test Output !!!
-        List<WeightScaleDataItem> items = wsg.getListByMRN(MRN);
-        //List<WeightScaleDataItem> items  = wsg.getCompleteList();
-        for (int i = 0; i < items.size(); i++) {
-            System.out.println(items.get(i).toString());
-        }
-        System.out.println("Total number of items: " + items.size());
-        return items;
-         //**/
-        return wsg.getListByMRN(MRN);
-    }
 
     /****************
         GETTERS
@@ -169,4 +160,124 @@ public class MainActivity extends AppCompatActivity {
     public void setLoginButton(Button loginButton) {
         this.loginButton = loginButton;
     }
+
+    /**
+     * Creates an asynchronized task to hand the database access for the user's login
+     */
+    class LoginTask extends AsyncTask<String, Void, String> {
+        private final String TAG = LoginTask.class.getSimpleName();
+        @Override
+        protected void onPreExecute() {
+            Toast.makeText(MainActivity.this,"Attempting to Login",Toast.LENGTH_LONG).show();
+
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            String username = params[0], password = params[1], returnMessage = "Login Failed";
+            System.out.println("username: " + username + " paassword: " + password);
+            // Making a request to url and getting response
+            String reqUrl = "http://ec2-13-58-1-146.us-east-2.compute.amazonaws.com/patient/readPatient.php";
+
+            String charSet = "UTF-8";
+            String response = null;
+            try {
+                URL url = new URL(reqUrl);
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("POST");
+                conn.setDoOutput(true);
+                OutputStream OS = conn.getOutputStream();
+                BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(OS));
+                String data = URLEncoder.encode("login_id", charSet) + "=" +URLEncoder.encode(username, charSet) + "&" +
+                        URLEncoder.encode("login_pw", charSet) + "=" + URLEncoder.encode("password", charSet);
+                bw.write(data);
+                bw.flush();
+                bw.close();
+                OS.close();
+                // read the response
+                InputStream in = new BufferedInputStream(conn.getInputStream());
+                response = convertStreamToString(in);
+                System.out.println("Response: " + response);
+            } catch (MalformedURLException e) {
+                Log.e(TAG, "MalformedURLException: " + e.getMessage());
+            } catch (ProtocolException e) {
+                Log.e(TAG, "ProtocolException: " + e.getMessage());
+            } catch (IOException e) {
+                Log.e(TAG, "IOException: " + e.getMessage());
+            } catch (Exception e) {
+                Log.e(TAG, "Exception: " + e.getMessage());
+            }
+
+            if (response != null) {
+                try {
+                    JSONObject jsonObj = new JSONObject(response);
+                    if(jsonObj.getInt("success") == 1) {
+                        // Getting JSON Array node
+                        JSONArray patients = jsonObj.getJSONArray("patient");
+
+                        // looping through All Contacts
+                        for (int i = 0; i < patients.length(); i++) {
+                            JSONObject p = patients.getJSONObject(i);
+                            String mrn = p.getString("mrn");
+                            String loginID = p.getString("login_id");
+                            String loginPW = p.getString("login_pw");
+
+                            // adding contact to contact list
+                            User.getUser().setMrn(mrn);
+                            User.getUser().setLoginID(loginID);
+                            User.getUser().setLoginPW(loginPW);
+                         //   System.out.println("User: " + User.getUser().toString());
+                        }
+                        returnMessage = "Login Success";
+                    }else{
+                        System.out.println("Failed to get patient" + jsonObj.toString());
+                    }
+                } catch (final JSONException e) {
+                    //Log.e(TAG, "Json parsing error: " + e.getMessage());
+                    e.printStackTrace();
+
+
+                }
+
+            } else {
+                //Log.e(TAG, "Couldn't get json from server.");
+                System.out.println("Connection Failed");
+            }
+
+            return returnMessage;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            Toast.makeText(MainActivity.this, result, Toast.LENGTH_LONG).show();
+            if(result.equalsIgnoreCase("login success")){
+                LogIn(true);
+            }else{
+                LogIn(false);
+            }
+        }
+
+        private String convertStreamToString(InputStream is) {
+            BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+            StringBuilder sb = new StringBuilder();
+
+            String line;
+            try {
+                while ((line = reader.readLine()) != null) {
+                    sb.append(line).append('\n');
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    is.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            return sb.toString();
+        }
+    }
+
 }
