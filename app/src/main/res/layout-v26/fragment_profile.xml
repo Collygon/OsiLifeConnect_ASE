@@ -134,5 +134,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/spacingTextViewSeven"
         android:layout_centerInParent="true"
+        android:drawableLeft="@drawable/baseline_arrow_back_black_18dp"
         android:text="Logout" />
 </RelativeLayout>
