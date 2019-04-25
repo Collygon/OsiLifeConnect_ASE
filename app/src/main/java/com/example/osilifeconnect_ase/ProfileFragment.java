@@ -19,7 +19,9 @@ public class ProfileFragment extends Fragment{
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        this.logoutButton = logoutButton.findViewById(R.id.logoutButton);
+        View v = inflater.inflate(R.layout.fragment_profile, null);
+
+        this.logoutButton = v.findViewById(R.id.logoutButton);
 
         logoutButton.setOnClickListener(new View.OnClickListener(){
 
@@ -29,7 +31,7 @@ public class ProfileFragment extends Fragment{
             }
         });
 
-        return inflater.inflate(R.layout.fragment_profile, null);
+        return v;
     }
 
     public void logoutMethod(View v){
