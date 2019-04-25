@@ -32,4 +32,5 @@
     <string name="email">Email:</string>
     <string name="no_email_set">No Email Set</string>
     <string name="physician">Physician:</string>
+    <string name="remember_me">Remember Me!</string>
 </resources>

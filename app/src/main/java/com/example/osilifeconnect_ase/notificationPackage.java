@@ -26,7 +26,7 @@ public class notificationPackage {
         PendingIntent pendingIntent = PendingIntent.getActivity(c, 0, intent, 0);
 
         nBuilder = new NotificationCompat.Builder(c, CHANNEL_ID)
-                .setSmallIcon(R.drawable.osiLogo)
+                .setSmallIcon(R.drawable.osilogo)
                 .setContentTitle("Osilife Connect: Login")
                 .setContentText("You have successfully logged in!")
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
@@ -43,7 +43,7 @@ public class notificationPackage {
         PendingIntent pendingIntent = PendingIntent.getActivity(c, 0, intent, 0);
 
         nBuilder = new NotificationCompat.Builder(c, CHANNEL_ID)
-                .setSmallIcon(R.drawable.osiLogo)
+                .setSmallIcon(R.drawable.osilogo)
                 .setContentTitle("Osilife Connect: Weight Sensor")
                 .setContentText("Weight Sensor is now connected via bluetooth")
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
@@ -60,7 +60,7 @@ public class notificationPackage {
         PendingIntent pendingIntent = PendingIntent.getActivity(c, 0, intent, 0);
 
         nBuilder = new NotificationCompat.Builder(c, CHANNEL_ID)
-                .setSmallIcon(R.drawable.osiLogo)
+                .setSmallIcon(R.drawable.osilogo)
                 .setContentTitle("Osilife Connect: Weight Sensor")
                 .setContentText("Weight taken successfully!")
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
@@ -81,7 +81,7 @@ public class notificationPackage {
         PendingIntent pendingIntent = PendingIntent.getActivity(c, 0, intent, 0);
 
         nBuilder = new NotificationCompat.Builder(c, CHANNEL_ID)
-                .setSmallIcon(R.drawable.osiLogo)
+                .setSmallIcon(R.drawable.osilogo)
                 .setContentTitle("Osilife Connect: Blood Pressure Monitor")
                 .setContentText("Blood Pressure Monitor is now connected via bluetooth")
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
@@ -98,7 +98,7 @@ public class notificationPackage {
         PendingIntent pendingIntent = PendingIntent.getActivity(c, 0, intent, 0);
 
         nBuilder = new NotificationCompat.Builder(c, CHANNEL_ID)
-                .setSmallIcon(R.drawable.osiLogo)
+                .setSmallIcon(R.drawable.osilogo)
                 .setContentTitle("Osilife Connect: Blood Pressure Monitor")
                 .setContentText("Blood Pressure read successfully!")
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)

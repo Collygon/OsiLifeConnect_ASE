@@ -4,14 +4,17 @@ import android.animation.ObjectAnimator;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.osilifeconnect_ase.DataModels.BloodPressureDataItem;
 import com.example.osilifeconnect_ase.DataModels.WeightScaleDataItem;
@@ -28,17 +31,22 @@ public class MainActivity extends AppCompatActivity {
     private TextView alertText;
     private Button loginButton;
     private int loginAttempts = 0;
+    private CheckBox userCheckBox;
+    private SharedPreferences loginPrefs;
+    private static final String PREFS_NAME = "PrefsFile";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.d("MAIN", "Starting App...");
         super.onCreate(savedInstanceState);
-        Log.d("MAIN", "Setting content view.");
         setContentView(R.layout.activity_main);
-        Log.d("MAIN", "Content set. Initializing.");
         alertText = findViewById(R.id.loginAlertText);
         alertText.setVisibility(View.GONE);
+
+        loginPrefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+
         initializeComponents();
+
+        retrievePrefs();
         //Login Listener START
         loginButton.setOnClickListener(new View.OnClickListener(){
 
@@ -50,11 +58,31 @@ public class MainActivity extends AppCompatActivity {
         //Login Listener END
     }
 
+    private void retrievePrefs() {
+        SharedPreferences retPrefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        if(retPrefs.contains("pref_user_name")){
+            String prefUserName = retPrefs.getString("pref_user_name", "not_available");
+            usernameTextField.setText(prefUserName);
+        }
+        if(retPrefs.contains("pref_user_pass")){
+            String prefUserPass = retPrefs.getString("pref_user_pass", "not_available");
+            passwordTextField.setText(prefUserPass);
+        }
+        if(retPrefs.contains("pref_log_check")){
+            boolean prefCheck = retPrefs.getBoolean("pref_log_check", false);
+            userCheckBox.setChecked(prefCheck);
+        }
+
+    }
+
     public void loginMethod(View view){
         if(testCredentials()){
+                checkboxAnalysis();
                 Intent dashIntent = new Intent(this, dashboardActivity.class);
                 Log.d("DASH INTENT", "Intent Generated");
                 notificationPackage.getInstance().loginNotify(this);
+                usernameTextField.getText().clear();
+                getPasswordTextField().getText().clear();
                 startActivity(dashIntent);
         }
         else if(loginAttempts >= 1){
@@ -64,6 +92,20 @@ public class MainActivity extends AppCompatActivity {
         else {
             alertText.setVisibility(View.VISIBLE);
             loginAttempts++;
+        }
+    }
+
+    public void checkboxAnalysis(){
+        if(userCheckBox.isChecked()){
+            boolean remCheck = userCheckBox.isChecked();
+            SharedPreferences.Editor prefEdit = loginPrefs.edit();
+            prefEdit.putString("pref_user_name", getEditText(usernameTextField));
+            prefEdit.putString("pref_user_pass", getEditText(passwordTextField));
+            prefEdit.putBoolean("pref_log_check", remCheck);
+            prefEdit.apply();
+            Toast.makeText(this, "User credentials saved.", Toast.LENGTH_SHORT).show();
+        }else{
+            loginPrefs.edit().clear().apply();
         }
     }
 
@@ -79,6 +121,7 @@ public class MainActivity extends AppCompatActivity {
         this.usernameTextField = findViewById(R.id.usernameTextField);
         this.passwordTextField = findViewById(R.id.passwordTextField);
         this.loginButton = findViewById(R.id.loginButton);
+        this.userCheckBox = findViewById(R.id.userCheckBox);
         createNotificationChannel();
     }
 
