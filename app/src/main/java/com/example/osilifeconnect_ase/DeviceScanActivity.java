@@ -39,7 +39,7 @@ public class DeviceScanActivity extends ListActivity {
     private BluetoothLeScanner scanner;
     private boolean mScanning;
     private Handler handler;
-    private LeDeviceListAdapter leDeviceListAdapter;
+    //private LeDeviceListAdapter leDeviceListAdapter;
     private ArrayList<BluetoothDevice> leDevices;
 
     private static final int REQUEST_ENABLE_BT = 1;
@@ -50,10 +50,10 @@ public class DeviceScanActivity extends ListActivity {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         getActionBar().setTitle(R.string.title_activity_device_scan);
-        ListView list = new ListView(this);
-        leDeviceListAdapter = new LeDeviceListAdapter(this);
-        list.setAdapter(leDeviceListAdapter);
-        setContentView(list);
+        //ListView list = new ListView(this);
+        //leDeviceListAdapter = new LeDeviceListAdapter(this);
+        //list.setAdapter(leDeviceListAdapter);
+        //setContentView(list);
         handler = new Handler();
 
         //check if device for BLE availability --Cullen
@@ -109,20 +109,22 @@ public class DeviceScanActivity extends ListActivity {
             }
         }
 
-        leDeviceListAdapter = new LeDeviceListAdapter();
-        setListAdapter(leDeviceListAdapter);
-        scanLeDevice(true);
+        //leDeviceListAdapter = new LeDeviceListAdapter(this);
+        //setListAdapter(leDeviceListAdapter);
+        //scanLeDevice(true);
     }
 
     @Override
     protected void onPause(){
         super.onPause();
-        scanLeDevice(false);
-        scanComplete();
-        leDeviceListAdapter.clear();
+        //scanLeDevice(false);
+        //scanComplete();
+        //leDeviceListAdapter.clear();
     }
 
-    @Override
+
+
+    /*@Override
     protected void onListItemClick(ListView l, View v, int position, long id){
         final BluetoothDevice device = leDeviceListAdapter.getDevice(position);
         if(device == null)
@@ -232,6 +234,6 @@ public class DeviceScanActivity extends ListActivity {
     static class ViewHolder{
         TextView deviceName;
         TextView deviceAddress;
-    }
+    }*/
 }
 

@@ -1,21 +1,34 @@
 package com.example.osilifeconnect_ase;
 
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothManager;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.osilifeconnect_ase.DataModels.dummyDataWeight;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 
 public class WeightActivity extends AppCompatActivity {
     private RecyclerView recView;
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerView.Adapter adapter;
+    private Set<BluetoothDevice> pairedDevices;
+    private BluetoothAdapter bluetoothAdapter;
 
     //create a bunch of dummyWeight objects
     dummyDataWeight weightObj1 = new dummyDataWeight(0001);
@@ -29,10 +42,30 @@ public class WeightActivity extends AppCompatActivity {
     private List<dummyDataWeight> dayList = new ArrayList<>();
     private List<dummyDataWeight> weekList = new ArrayList<>();
     private List<dummyDataWeight> monthList = new ArrayList<>();
+    private WeightActivity bluetoothService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if(!getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH_LE)){
+            Toast.makeText(this, R.string.ble_not_supported, Toast.LENGTH_SHORT).show();
+            finish();
+        }
+
+        //Initialize Bluetooth adapter
+        final BluetoothManager bluetoothManager =
+                (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
+        bluetoothAdapter = bluetoothManager.getAdapter();
+
+        //Checks if Bluetooth is enable
+        //If not says that Bluetooth is disabled and prompts user to change settings
+        if(bluetoothAdapter == null || !bluetoothAdapter.isEnabled()){
+            Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            int REQUEST_ENABLE_BT = 1;
+            startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
+            finish();
+        }
         setContentView(R.layout.activity_weight);
 
         //set dummy weights
@@ -82,5 +115,32 @@ public class WeightActivity extends AppCompatActivity {
         //TODO display month data
         adapter = new WeightAdapter(monthList);
         recView.setAdapter(adapter);
+    }
+
+    void getPairedDevices(){
+        pairedDevices = bluetoothAdapter.getBondedDevices();
+        if (pairedDevices.size() > 0) {
+            ArrayList<String> deviceList = new ArrayList<>(pairedDevices.size());
+            for (BluetoothDevice bluetoothDevice : pairedDevices) {
+                BluetoothSensorDevice sensorDevice = new BluetoothSensorDevice(bluetoothDevice);
+                deviceList.add(sensorDevice.getLabel());
+            }
+            final String[] deviceArray = deviceList.toArray(new String[0]);
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Select Scale:");
+            builder.setItems(deviceArray, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, final int item) {
+                    BluetoothSensorDevice sensorDevice = BluetoothSensorDevice.fromLabel(deviceArray[item]);
+                    connectToDevice(sensorDevice);
+                }
+            });
+            AlertDialog alert = builder.create();
+            alert.show();
+        }
+    }
+
+    public void connectToDevice(BluetoothSensorDevice sensorDevice) {
+        this.bluetoothService.connectToDevice(this.adapter.getRemoteDevice(sensorDevice.getAddress()));
     }
 }
