@@ -23,6 +23,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -39,6 +40,7 @@ public class DeviceScanActivity extends ListActivity {
     private boolean mScanning;
     private Handler handler;
     private LeDeviceListAdapter leDeviceListAdapter;
+    private ArrayList<BluetoothDevice> leDevices;
 
     private static final int REQUEST_ENABLE_BT = 1;
     //Stop scanning after 10 sec
@@ -48,6 +50,10 @@ public class DeviceScanActivity extends ListActivity {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         getActionBar().setTitle(R.string.title_activity_device_scan);
+        ListView list = new ListView(this);
+        leDeviceListAdapter = new LeDeviceListAdapter(this);
+        list.setAdapter(leDeviceListAdapter);
+        setContentView(list);
         handler = new Handler();
 
         //check if device for BLE availability --Cullen
@@ -69,6 +75,7 @@ public class DeviceScanActivity extends ListActivity {
             startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
             finish();
         }
+        leDevices = new ArrayList<BluetoothDevice>();
     }
     /********
     @Override
@@ -154,11 +161,15 @@ public class DeviceScanActivity extends ListActivity {
             if(result == null || result.getDevice() == null)
                 return;
 
-            leDeviceListAdapter.addDevice(result.getDevice());
-            leDeviceListAdapter.notifyDataSetChanged();
+            proccessResult(result);
             Log.d("Device Name", "onScanResult: " + result.getDevice().getName());
         }
     };
+
+    private void proccessResult(ScanResult result){
+        BluetoothDevice device = result.getDevice();
+        leDevices.add(device);
+    }
 
 
     //...
@@ -186,49 +197,15 @@ public class DeviceScanActivity extends ListActivity {
     private void scanComplete(){
         if(leDeviceListAdapter.getCount() == 0)
             return;
-        for(BluetoothDevice d : leDeviceListAdapter.leDevices)
+        for(BluetoothDevice d : leDevices)
             Log.d("BLE", "Found Device: " + d.getName() +"\n"+ d.getAddress());
     }
 
-    private class LeDeviceListAdapter extends BaseAdapter {
-        private ArrayList<BluetoothDevice> leDevices;
+    private static class LeDeviceListAdapter extends ArrayAdapter<BluetoothDevice> {
         private LayoutInflater inflater;
 
-        public LeDeviceListAdapter(){
-            super();
-            leDevices = new ArrayList<BluetoothDevice>();
-            inflater = DeviceScanActivity.this.getLayoutInflater();
-        }
-
-        public void addDevice(BluetoothDevice device) {
-            if(!leDevices.contains(device))
-                leDevices.add(device);
-        }
-
-        public BluetoothDevice getDevice(int position){
-            return leDevices.get(position);
-        }
-
-        public void notifyDataSetChanged() {
-        }
-
-        public void clear() {
-            leDevices.clear();
-        }
-
-        @Override
-        public int getCount() {
-            return leDevices.size();
-        }
-
-        @Override
-        public Object getItem(int i) {
-            return leDevices.get(i);
-        }
-
-        @Override
-        public long getItemId(int i) {
-            return i;
+        public LeDeviceListAdapter(Context context){
+            super(context, 0);
         }
 
         @Override
@@ -237,21 +214,15 @@ public class DeviceScanActivity extends ListActivity {
 
             if(view == null){
                 view = inflater.inflate(R.layout.listitem_device, null);
-                viewHolder = new ViewHolder();
-                viewHolder.deviceName = (TextView) view.findViewById(R.id.device_name);
-                viewHolder.deviceAddress = (TextView) view.findViewById(R.id.device_address);
-                view.setTag(viewHolder);
-            }
-            else{
-                viewHolder = (ViewHolder) view.getTag();
             }
 
-            BluetoothDevice device = leDevices.get(i);
-            final String deviceName = device.getName();
-            if(deviceName != null && deviceName.length() > 0)
-                viewHolder.deviceName.setText(deviceName);
-            else
-                viewHolder.deviceName.setText("Unknown Device");
+            BluetoothDevice device = getItem(i);
+            viewHolder = new ViewHolder();
+            viewHolder.deviceName = (TextView) view.findViewById(R.id.device_name);
+            viewHolder.deviceAddress = (TextView) view.findViewById(R.id.device_address);
+            view.setTag(viewHolder);
+
+            viewHolder.deviceName.setText(device.getName());
             viewHolder.deviceAddress.setText(device.getAddress());
 
             return view;
