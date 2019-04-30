@@ -28,6 +28,7 @@ public class WeightActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerView.Adapter adapter;
     private Set<BluetoothDevice> pairedDevices;
+    private BluetoothLeService bluetoothLeService;
     private BluetoothAdapter bluetoothAdapter;
 
     //create a bunch of dummyWeight objects
@@ -57,6 +58,7 @@ public class WeightActivity extends AppCompatActivity {
         final BluetoothManager bluetoothManager =
                 (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
         bluetoothAdapter = bluetoothManager.getAdapter();
+        bluetoothLeService = new BluetoothLeService();
 
         //Checks if Bluetooth is enable
         //If not says that Bluetooth is disabled and prompts user to change settings
@@ -141,6 +143,6 @@ public class WeightActivity extends AppCompatActivity {
     }
 
     public void connectToDevice(BluetoothSensorDevice sensorDevice) {
-        this.bluetoothService.connectToDevice(this.adapter.getRemoteDevice(sensorDevice.getAddress()));
+        //this.bluetoothLeService.connectToDevice(this.bluetoothAdapter.getRemoteDevice(sensorDevice.getAddress()));
     }
 }
