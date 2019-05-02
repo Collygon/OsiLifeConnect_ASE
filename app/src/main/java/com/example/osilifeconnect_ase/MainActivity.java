@@ -88,8 +88,13 @@ public class MainActivity extends AppCompatActivity {
     public void loginMethod(View view){
         String username = usernameTextField.getText().toString();
         String password = passwordTextField.getText().toString();
+        checkboxAnalysis();
+        Intent dashIntent = new Intent(this, dashboardActivity.class);
+        Log.d("DASH INTENT", "Intent Generated");
+        notificationPackage.getInstance().loginNotify(this);
+        startActivity(dashIntent);
         //execute loginTask
-        new LoginTask().execute(username, password);
+        //new LoginTask().execute(username, password);
     }
 
     public void LogIn(boolean success){
