@@ -79,5 +79,7 @@
     <com.google.android.gms.maps.MapView
         android:id="@+id/osiMap"
         android:layout_width="match_parent"
-        android:layout_height="350dp" />
+        android:layout_height="350dp"
+        android:name="com.google.android.gms.SupportMapFragment"
+        tools:context="com.shaby.osilifeconnect_ase.ContactFragment" />
 </RelativeLayout>
