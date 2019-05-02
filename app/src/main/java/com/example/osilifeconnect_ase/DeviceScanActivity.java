@@ -4,6 +4,8 @@ import android.app.ListActivity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothClass;
 import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothGatt;
+import android.bluetooth.BluetoothGattCallback;
 import android.bluetooth.BluetoothManager;
 import android.bluetooth.le.BluetoothLeScanner;
 import android.bluetooth.le.ScanCallback;
@@ -36,7 +38,6 @@ import java.util.ArrayList;
  */
 public class DeviceScanActivity extends ListActivity {
     private String bpMAC = "64:CF:D9:36:C9:90";
-    private BluetoothDevice bpDevice;
     private BluetoothAdapter bluetoothAdapter;
     private BluetoothLeScanner scanner;
     private boolean mScanning;
@@ -46,12 +47,12 @@ public class DeviceScanActivity extends ListActivity {
 
     private static final int REQUEST_ENABLE_BT = 1;
     //Stop scanning after 10 sec
-    private static final long SCAN_PERIOD = 10000;
+    private static final long SCAN_PERIOD = 60000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        getActionBar().setTitle(R.string.title_activity_device_scan);
+        //getActionBar().setTitle(R.string.title_activity_device_scan);
        // ListView list = new ListView(this);
         leDeviceListAdapter = new LeDeviceListAdapter(this);
         //list.setAdapter(leDeviceListAdapter);
@@ -165,18 +166,25 @@ public class DeviceScanActivity extends ListActivity {
             if(result == null || result.getDevice() == null)
                 return;
 
-            proccessResult(result);
+            processResult(result);
             Log.d("Device Name", "onScanResult: " + result.getDevice().getName());
         }
     };
 
-    private void proccessResult(ScanResult result){
+    private void processResult(ScanResult result){
         BluetoothDevice device = result.getDevice();
         Log.d("MAC:", device.getAddress());
         if(device.getAddress().equals(bpMAC)){
-            Log.d("","proccessResult: Blood Pressure connected!");
-            bpDevice = device;
-            Intent bloodIntent = new Intent(this, BloodPressureActivity.class);
+            Log.d("Result","processResult: Blood Pressure connected!");
+            BloodPressureDevice.getInstance().setDevice(device);
+            Intent bloodIntent = new Intent(this, DeviceControlActivity.class);
+            bloodIntent.putExtra(DeviceControlActivity.EXTRAS_DEVICE_NAME, device.getName());
+            bloodIntent.putExtra(DeviceControlActivity.EXTRAS_DEVICE_ADDRESS, device.getAddress());
+            if (mScanning) {
+                bluetoothAdapter.getBluetoothLeScanner().stopScan(leScanCallback);
+                mScanning = false;
+                scanComplete();
+            }
             startActivity(bloodIntent);
         }
         leDevices.add(device);

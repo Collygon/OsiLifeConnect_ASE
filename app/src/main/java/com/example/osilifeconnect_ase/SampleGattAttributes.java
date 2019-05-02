@@ -7,18 +7,18 @@ import java.util.HashMap;
  */
 public class SampleGattAttributes {
     private static HashMap<String, String> attributes = new HashMap<>();
-    public static String HEART_RATE_MEASUREMENT = "00002a37-0000-1000-8000-00805f9b34fb";
-    public static String CLIENT_CHARACTERISTIC_CONFIG = "00002902-0000-1000-8000-00805f9b34fb";
+    public static String BLOOD_PRESSURE_MEASUREMENT = "00001810-0000-1000-8000-00805F9B34FB";
+    public static String CLIENT_CHARACTERISTIC_CONFIG = "00002902-0000-1000-8000-00805F9B34FB";
 
     static {
         // Sample Services.
-        attributes.put("000180d", "Heart Rate Service");
-        attributes.put("00180a", "Device Information Service");
-        attributes.put("001810", "Blood Pressure Service");
-        attributes.put("00181d", "Weight Scale Service");
+        attributes.put("00002A35-0000-1000-8000-00805F9B34FB", "Blood Pressure Measurement");
+        attributes.put("0000180A-0000-1000-8000-00805F9B34FB", "Device Information Service");
+        attributes.put("00002A49-0000-1000-8000-00805F9B34FB", "Blood Pressure Feature");
+        attributes.put("0000181D-0000-1000-8000-00805F9B34FB", "Weight Scale Service");
         // Sample Characteristics.
-        attributes.put(HEART_RATE_MEASUREMENT, "Heart Rate Measurement");
-        attributes.put("00002a29-0000-1000-8000-00805f9b34fb", "Manufacturer Name String");
+        attributes.put(BLOOD_PRESSURE_MEASUREMENT, "Blood Pressure Measurement");
+        attributes.put("Indie Health", "Manufacturer Name String");
     }
 
     public static String lookup(String uuid, String defaultName) {
