@@ -33,4 +33,21 @@
     <string name="no_email_set">No Email Set</string>
     <string name="physician">Physician:</string>
     <string name="remember_me">Remember Me!</string>
+    <string name="ble_not_supported">BLE not supported</string>
+    <string name="title_activity_device_scan">DeviceScanActivity</string>
+    <string name="title_activity_device_control">DeviceControlActivity</string>
+    <string name="unknown_service">unknown service</string>
+    <string name="unknown_characteristic">unknown characteristic</string>
+    <string name="connected">connected</string>
+    <string name="disconnected">disconnected</string>
+    <string name="no_data">no data</string>
+    <string name="label_data">Data:</string>
+    <string name="label_device_address">Device address:</string>
+    <string name="label_state">State:</string>
+
+    <!-- Menu items -->
+    <string name="menu_connect">Connect</string>
+    <string name="menu_disconnect">Disconnect</string>
+    <string name="menu_scan">Scan</string>
+    <string name="menu_stop">Stop</string>
 </resources>
