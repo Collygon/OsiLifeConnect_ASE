@@ -10,9 +10,10 @@ public class BloodPressureDataItem extends SensorDataItem {
     private double dystolic; //val1
     private double systolic; //val2
     private double pulse; //val3
+    private String dateString;
 
     public BloodPressureDataItem(String MRN, String loginID, String deviceType, String manufacturer,
-                                 String modelNumber, String serialNumber, Timestamp readingDateTime,
+                                 String modelNumber, String serialNumber, String readingDateTime,
                                  double dystolic, double systolic, double pulse) {
         super(MRN, loginID, deviceType, manufacturer, modelNumber, serialNumber, readingDateTime);
         this.dystolic = dystolic;
@@ -21,7 +22,7 @@ public class BloodPressureDataItem extends SensorDataItem {
     }
 
     public BloodPressureDataItem(String MRN, String loginID, String deviceType, String manufacturer,
-    String modelNumber, String serialNumber, Timestamp readingDateTime,
+    String modelNumber, String serialNumber, String readingDateTime,
     String val1, String val2, String val3) {
         super(MRN, loginID, deviceType, manufacturer, modelNumber, serialNumber, readingDateTime);
         this.setDystolic(val1);
@@ -90,4 +91,8 @@ public class BloodPressureDataItem extends SensorDataItem {
                 ", pulse='" + getValString(this.pulse) + '\'' +
                 '}';
     }
+   // public void setDateString(String dateString){this.dateString=dateString;}
+
+  //  public String getDateString(){return this.dateString;}
+
 }

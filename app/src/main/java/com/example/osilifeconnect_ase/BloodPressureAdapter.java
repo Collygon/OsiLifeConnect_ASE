@@ -65,7 +65,9 @@ public class BloodPressureAdapter extends RecyclerView.Adapter<BloodPressureAdap
     public void onBindViewHolder(MyViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        holder.date.setText(dataSet.get(position).getDate().toString());
+
+
+        holder.date.setText(dataSet.get(position).getDateString());
         holder.sysNum.setText(String.valueOf(dataSet.get(position).getSystolic()));
         holder.diaNum.setText(String.valueOf(dataSet.get(position).getDynostolic()));
         holder.pulseNum.setText(String.valueOf(dataSet.get(position).getPulseRate()));

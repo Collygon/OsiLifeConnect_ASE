@@ -69,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
     public void loginMethod(View view){
         String username = usernameTextField.getText().toString();
         String password = passwordTextField.getText().toString();
+        //execute loginTask
         new LoginTask().execute(username, password);
     }
 
@@ -210,6 +211,7 @@ public class MainActivity extends AppCompatActivity {
 
             if (response != null) {
                 try {
+                    System.out.println("Here is the response: " + response);
                     JSONObject jsonObj = new JSONObject(response);
                     if(jsonObj.getInt("success") == 1) {
                         // Getting JSON Array node
@@ -219,6 +221,7 @@ public class MainActivity extends AppCompatActivity {
                         for (int i = 0; i < patients.length(); i++) {
                             JSONObject p = patients.getJSONObject(i);
                             String mrn = p.getString("mrn");
+                           // System.out.print("MRN:"+mrn + " in main\n");
                             String loginID = p.getString("login_id");
                             String loginPW = p.getString("login_pw");
 

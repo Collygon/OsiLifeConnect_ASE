@@ -11,14 +11,14 @@ public class WeightScaleDataItem extends SensorDataItem {
     private double weight; //val1
 
     public WeightScaleDataItem(String MRN, String loginID, String deviceType, String manufacturer,
-                               String modelNumber, String serialNumber, Timestamp readingDateTime,
+                               String modelNumber, String serialNumber, String readingDateTime,
                                double weight){
         super(MRN, loginID, deviceType, manufacturer, modelNumber, serialNumber, readingDateTime);
         this.weight = weight;
     }
 
     public WeightScaleDataItem(String MRN, String loginID, String deviceType, String manufacturer,
-                               String modelNumber, String serialNumber, Timestamp readingDateTime,
+                               String modelNumber, String serialNumber, String readingDateTime,
                                String weight){
         super(MRN, loginID, deviceType, manufacturer, modelNumber, serialNumber, readingDateTime);
         this.setDystolic(weight);

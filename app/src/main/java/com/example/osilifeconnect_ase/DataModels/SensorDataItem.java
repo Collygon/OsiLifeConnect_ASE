@@ -18,10 +18,10 @@ public class SensorDataItem {
     private String modelNumber;
     private String SerialNumber;
     //private String readingDateTime;
-    private Timestamp readingDateTime;
+    private String readingDateTime;
 
     public SensorDataItem(String MRN, String loginID, String deviceType, String manufacturer,
-                          String modelNumber, String serialNumber, Timestamp readingDateTime) {
+                          String modelNumber, String serialNumber, String readingDateTime) {
         this.MRN = MRN;
         this.loginID = loginID;
         this.DeviceType = deviceType;
@@ -87,11 +87,11 @@ public class SensorDataItem {
         SerialNumber = serialNumber;
     }
 
-    public Timestamp getReadingDateTime() {
+    public String getReadingDateTime() {
         return readingDateTime;
     }
 
-    public void setReadingDateTime(Timestamp readingDateTime) {
+    public void setReadingDateTime(String readingDateTime) {
         this.readingDateTime = readingDateTime;
     }
 

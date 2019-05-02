@@ -1,14 +1,14 @@
 package com.example.osilifeconnect_ase.DataModels;
 
 public class dummyDataSuperClass {
-    private int MRN;
+    private String MRN;
 
 
-    public dummyDataSuperClass(int MRN){
-        this.MRN=1111;
+    public dummyDataSuperClass(String MRN){
+        this.MRN = MRN;
     }
 
-    public int getMRN(){
+    public String getMRN(){
         return this.MRN;
     }
 
