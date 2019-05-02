@@ -45,6 +45,8 @@ public class WeightAdapter extends RecyclerView.Adapter<WeightAdapter.WeightView
     @Override
     public void onBindViewHolder(WeightViewHolder viewHolder, int i) {
         viewHolder.date.setText(weightSet.get(i).getDate().toString());
+        //viewHolder.date.setText("02-05-19");
+
         viewHolder.weight.setText(String.valueOf(weightSet.get(i).getWeightLbs()));
     }
 
