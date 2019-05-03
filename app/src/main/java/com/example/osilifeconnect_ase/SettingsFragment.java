@@ -10,6 +10,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+/***************************************************************
+ * This fragment stores the buttons for loading different setting options.
+ * Units changes the type of units displayed on the sensor views.
+ * Configuration has general UI changes for the user.
+ */
 public class SettingsFragment extends Fragment{
 
     @Nullable
@@ -20,6 +25,9 @@ public class SettingsFragment extends Fragment{
         Button uButton = view.findViewById(R.id.unitsButton);
         Button cButton = view.findViewById(R.id.configButton);
 
+        /************************
+         * Listener for the Units Settings button
+         */
         uButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -27,6 +35,9 @@ public class SettingsFragment extends Fragment{
             }
         });
 
+        /************************
+         * Listener for the Configuration Settings button
+         */
         cButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -37,11 +48,19 @@ public class SettingsFragment extends Fragment{
         return view;
     }
 
+    /*****************************
+     * Loads the Units settings activity view
+     * @param view
+     */
     public void goToUnits(View view){
         Intent intent = new Intent(SettingsFragment.this.getActivity(), UnitsActivity.class);
         startActivity(intent);
     }
 
+    /*****************************
+     * Loads the Configuration settings activity view
+     * @param view
+     */
     public void goToConfiguration(View view){
         Intent intent = new Intent(SettingsFragment.this.getActivity(), ConfigurationActivity.class);
         startActivity(intent);

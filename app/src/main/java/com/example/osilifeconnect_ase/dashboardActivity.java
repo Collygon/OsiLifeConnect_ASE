@@ -9,7 +9,6 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -18,17 +17,23 @@ import android.widget.Toolbar;
 public class dashboardActivity extends AppCompatActivity {
 
     private Context context;
+
+    // Layout that holds the menu items and manages the navigation menu
     private DrawerLayout cDrawerLayout;
+
+    // Boolean for the switch view to determine if the user chose a menuItem or not.
     private boolean bSwitchCheck;
 
 
+    /****************************************************
+     * Generates the view for the dashboardActivity.
+     * This activity is responsible for managing the action tool bar on the left side of the application.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.d("DASHBOARD", "Dashboard successfully opened.");
         super.onCreate(savedInstanceState);
-        Log.d("DASHBOARD", "Instance State completed.");
         setContentView(R.layout.activity_dashboard);
-        Log.d("DASHBOARD", "End of dashboard creation.");
         cDrawerLayout = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -37,13 +42,17 @@ public class dashboardActivity extends AppCompatActivity {
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);
         final TextView welcomeText = (TextView) findViewById(R.id.welcomeTextView);
 
-        Log.d("DASHBOARD", "Initializing listener...");
+        /****************
+         * Applies a listener for the tool bar.
+         * Listens for a user action, opening the bar from the left side of the screen.
+         * Keeps the bar open until the user clicks out of it, or selects a 'menu item'
+         * On selecting a menu item, the view changes with the use of fragments.
+         */
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
                     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                         menuItem.setChecked(true);
-                        Log.d("MENU ITEM", "Selected" + menuItem.getTitle().toString());
                         menuItem.setChecked(false);
                         cDrawerLayout.closeDrawers();
                         welcomeText.setVisibility(View.GONE);
@@ -57,6 +66,13 @@ public class dashboardActivity extends AppCompatActivity {
 
     }
 
+    /********************
+     * Native function by Android Studio that is required for toolbar functionality.
+     * Used to expand the toolbar and display all the menu items.
+     * Details on the menu items can be found in: res/menu/navigation_menu.xml
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -67,6 +83,14 @@ public class dashboardActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /*************
+     * Changes the view by loading a new fragment.
+     * Called by the 'Switch Fragment' function
+     * Uses an animation for the view change.
+     * Details for these animations are found in: res/anim/...
+     * @param fragment
+     * @return boolean; required for the listener to function properly
+     */
     public boolean loadFragment(Fragment fragment){
         if(fragment != null){
 
@@ -82,6 +106,13 @@ public class dashboardActivity extends AppCompatActivity {
         return false;
     }
 
+    /**************
+     * Called by the listener when a menu item is selected by the user in the
+     * navigation tool bar.
+     * Generates a new fragment which is passed to the load fragment button to change the view.
+     * @param item [MenuItem]
+     * @return boolean
+     */
     public boolean switchFragment(MenuItem item){
 
         Fragment fragment = null;
