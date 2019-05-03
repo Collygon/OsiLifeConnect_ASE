@@ -4,6 +4,7 @@ import android.animation.ObjectAnimator;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -11,16 +12,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.osilifeconnect_ase.DataModels.User;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -34,8 +33,6 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.util.HashMap;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -44,17 +41,22 @@ public class MainActivity extends AppCompatActivity {
     private TextView alertText;
     private Button loginButton;
     private int loginAttempts = 0;
+    private CheckBox userCheckBox;
+    private SharedPreferences loginPrefs;
+    private static final String PREFS_NAME = "PrefsFile";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.d("MAIN", "Starting App...");
         super.onCreate(savedInstanceState);
-        Log.d("MAIN", "Setting content view.");
         setContentView(R.layout.activity_main);
-        Log.d("MAIN", "Content set. Initializing.");
         alertText = findViewById(R.id.loginAlertText);
         alertText.setVisibility(View.GONE);
+
+        loginPrefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+
         initializeComponents();
+
+        retrievePrefs();
         //Login Listener START
         loginButton.setOnClickListener(new View.OnClickListener(){
 
@@ -66,14 +68,38 @@ public class MainActivity extends AppCompatActivity {
         //Login Listener END
     }
 
+    private void retrievePrefs() {
+        SharedPreferences retPrefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        if(retPrefs.contains("pref_user_name")){
+            String prefUserName = retPrefs.getString("pref_user_name", "not_available");
+            usernameTextField.setText(prefUserName);
+        }
+        if(retPrefs.contains("pref_user_pass")){
+            String prefUserPass = retPrefs.getString("pref_user_pass", "not_available");
+            passwordTextField.setText(prefUserPass);
+        }
+        if(retPrefs.contains("pref_log_check")){
+            boolean prefCheck = retPrefs.getBoolean("pref_log_check", false);
+            userCheckBox.setChecked(prefCheck);
+        }
+
+    }
+
     public void loginMethod(View view){
         String username = usernameTextField.getText().toString();
         String password = passwordTextField.getText().toString();
-        new LoginTask().execute(username, password);
+        checkboxAnalysis();
+        Intent dashIntent = new Intent(this, dashboardActivity.class);
+        Log.d("DASH INTENT", "Intent Generated");
+        notificationPackage.getInstance().loginNotify(this);
+        startActivity(dashIntent);
+        //execute loginTask
+        //new LoginTask().execute(username, password);
     }
 
     public void LogIn(boolean success){
         if(success) {
+            checkboxAnalysis();
             Intent dashIntent = new Intent(this, dashboardActivity.class);
             Log.d("DASH INTENT", "Intent Generated");
             notificationPackage.getInstance().loginNotify(this);
@@ -88,30 +114,29 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    /**Cullen messing with stuff!!!!!!!!!!!!!!!!*/
-    public void goToWeight (View view){
-        Intent intent = new Intent(this, WeightActivity.class);
-        startActivity(intent);
-        //EditText editT = (EditText) findViewById(R.id.editT);
-    }
-
-    public void goToBlood(View view){
-        Intent intent = new Intent(this, BloodPressureActivity.class);
-        startActivity(intent);
+    public void checkboxAnalysis(){
+        if(userCheckBox.isChecked()){
+            boolean remCheck = userCheckBox.isChecked();
+            SharedPreferences.Editor prefEdit = loginPrefs.edit();
+            prefEdit.putString("pref_user_name", getEditText(usernameTextField));
+            prefEdit.putString("pref_user_pass", getEditText(passwordTextField));
+            prefEdit.putBoolean("pref_log_check", remCheck);
+            prefEdit.apply();
+            Toast.makeText(this, "User credentials saved.", Toast.LENGTH_SHORT).show();
+        }else{
+            loginPrefs.edit().clear().apply();
+        }
     }
 
     public String getEditText(EditText text){
         return text.getText().toString();
     }
 
-    public boolean testCredentials(){
-        return getEditText(usernameTextField).equals("Username") && getEditText(passwordTextField).equals("Password");
-    }
-
     public void initializeComponents(){
         this.usernameTextField = findViewById(R.id.usernameTextField);
         this.passwordTextField = findViewById(R.id.passwordTextField);
         this.loginButton = findViewById(R.id.loginButton);
+        this.userCheckBox = findViewById(R.id.userCheckBox);
         createNotificationChannel();
     }
 
@@ -132,33 +157,6 @@ public class MainActivity extends AppCompatActivity {
             NotificationManager notificationManager = getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
         }
-    }
-
-
-    /****************
-        GETTERS
-          AND
-        SETTERS
-     **************/
-    public EditText getUsernameTextField() {
-        return usernameTextField;
-    }
-    public void setUsernameTextField(EditText usernameTextField) {
-        this.usernameTextField = usernameTextField;
-    }
-
-    public EditText getPasswordTextField() {
-        return passwordTextField;
-    }
-    public void setPasswordTextField(EditText passwordTextField) {
-        this.passwordTextField = passwordTextField;
-    }
-
-    public Button getLoginButton() {
-        return loginButton;
-    }
-    public void setLoginButton(Button loginButton) {
-        this.loginButton = loginButton;
     }
 
     /**
@@ -210,6 +208,7 @@ public class MainActivity extends AppCompatActivity {
 
             if (response != null) {
                 try {
+                    System.out.println("Here is the response: " + response);
                     JSONObject jsonObj = new JSONObject(response);
                     if(jsonObj.getInt("success") == 1) {
                         // Getting JSON Array node
@@ -219,6 +218,7 @@ public class MainActivity extends AppCompatActivity {
                         for (int i = 0; i < patients.length(); i++) {
                             JSONObject p = patients.getJSONObject(i);
                             String mrn = p.getString("mrn");
+                           // System.out.print("MRN:"+mrn + " in main\n");
                             String loginID = p.getString("login_id");
                             String loginPW = p.getString("login_pw");
 

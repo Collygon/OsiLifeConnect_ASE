@@ -55,7 +55,7 @@ public class BloodPressureAdapter extends RecyclerView.Adapter<BloodPressureAdap
     @Override
     public BloodPressureAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // create a new view
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_view_item, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.listitem_blood_pressure, parent, false);
         MyViewHolder vh = new MyViewHolder(v);
         return vh;
     }
@@ -65,7 +65,9 @@ public class BloodPressureAdapter extends RecyclerView.Adapter<BloodPressureAdap
     public void onBindViewHolder(MyViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        holder.date.setText(dataSet.get(position).getDate().toString());
+
+
+        holder.date.setText(dataSet.get(position).getDateString());
         holder.sysNum.setText(String.valueOf(dataSet.get(position).getSystolic()));
         holder.diaNum.setText(String.valueOf(dataSet.get(position).getDynostolic()));
         holder.pulseNum.setText(String.valueOf(dataSet.get(position).getPulseRate()));

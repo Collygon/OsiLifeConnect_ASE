@@ -51,6 +51,12 @@
         android:layout_height="15dp"
         android:layout_below="@id/profilePhysicianPhone" />
 
+    <TextView
+        android:id="@+id/spacingTextViewSeven"
+        android:layout_width="match_parent"
+        android:layout_height="15dp"
+        android:layout_below="@id/profilePhysicianAddress" />
+
     <EditText
         android:id="@+id/profileEmailText"
         android:layout_width="match_parent"
@@ -121,4 +127,13 @@
         android:text=""
         android:textAlignment="textStart"
         android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/logoutButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/spacingTextViewSeven"
+        android:layout_centerInParent="true"
+        android:drawableLeft="@drawable/baseline_arrow_back_black_18dp"
+        android:text="Logout" />
 </RelativeLayout>

@@ -7,7 +7,7 @@ public class dummyDataWeight extends dummyDataSuperClass {
     private double weightKgs;
     private Date date;
 
-    public dummyDataWeight(int MRN){
+    public dummyDataWeight(String MRN){
         super(MRN);
 
     }
@@ -29,7 +29,6 @@ public class dummyDataWeight extends dummyDataSuperClass {
         this.date = date;
     }
     public Date getDate(){
-        this.date = new Date();
         return this.date;
     }
 

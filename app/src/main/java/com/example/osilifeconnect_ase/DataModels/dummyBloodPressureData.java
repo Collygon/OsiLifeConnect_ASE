@@ -1,5 +1,6 @@
 package com.example.osilifeconnect_ase.DataModels;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class dummyBloodPressureData extends dummyDataSuperClass {
@@ -7,8 +8,9 @@ public class dummyBloodPressureData extends dummyDataSuperClass {
     private double dynostolic;
     private double systolic;
     private int pulseRate;
+    private String dateString;
 
-    public dummyBloodPressureData(int MRN){
+    public dummyBloodPressureData(String MRN){
         super(MRN);
     }
     public void setDynostolic(double dynostolic){
@@ -35,8 +37,19 @@ public class dummyBloodPressureData extends dummyDataSuperClass {
         return this.pulseRate;
     }
 
+    public void setDate(Date date){
+        this.date = date;
+    }
     public Date getDate(){
-        this.date=new Date();
         return this.date;
     }
+
+    public String getDateToString(){
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yy hh:mm");
+        return dateFormat.format(date);
+    }
+
+    public void setDateString(String dateString){this.dateString=dateString;}
+
+      public String getDateString(){return this.dateString;}
 }
