@@ -9,8 +9,6 @@ import java.time.LocalDateTime;
  * Represents data to be read from a sensor.
  */
 public class SensorDataItem {
-    protected static double dNull = -9999.0;
-    protected static String sNull = "NULL";
     private String MRN;
     private String loginID;
     private String DeviceType;
@@ -29,14 +27,6 @@ public class SensorDataItem {
         this.modelNumber = modelNumber;
         this.SerialNumber = serialNumber;
         this.readingDateTime = readingDateTime;
-    }
-
-    public double getdNull() {
-        return dNull;
-    }
-
-    public String getsNull() {
-        return sNull;
     }
 
     public String getMRN() {
@@ -102,7 +92,7 @@ public class SensorDataItem {
                 ", Manufacturer='" + Manufacturer + '\'' +
                 ", modelNumber='" + modelNumber + '\'' +
                 ", SerialNumber='" + SerialNumber + '\'' +
-                ", ReadingDateTime='" + readingDateTime.toString() + '\'' +
+                ", ReadingDateTime='" + readingDateTime + '\'' +
                 '}';
     }
 }

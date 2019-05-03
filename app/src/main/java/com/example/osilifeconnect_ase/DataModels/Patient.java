@@ -4,6 +4,7 @@ import java.sql.Date;
 
 /**
  * Represents a patient.
+ *  *** Currently not used CAN BE DELETED if you have no use for it ***
  */
 public class Patient {
     private static String[] validStates = { "alabama", "alaska", "arizona", "arkansas", "california", "colorado", "connecticut", "delaware",

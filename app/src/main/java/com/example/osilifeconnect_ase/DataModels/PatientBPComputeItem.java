@@ -3,9 +3,10 @@ package com.example.osilifeconnect_ase.DataModels;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
+/**
+ * Represents data from the blood pressure compute table
+ */
 public class PatientBPComputeItem {
-    protected static double dNull = -9999.0;
-    protected static String sNull = "NULL";
     private String MRN;
     private String loginID;
     private Timestamp readingDateTime;
@@ -99,46 +100,6 @@ public class PatientBPComputeItem {
 
     public void setPulse(double pulse) {
         this.pulse = pulse;
-    }
-
-    public void setDystolic(String sVal) {
-        double newVal;
-        try{
-            newVal = Double.parseDouble(sVal);
-        } catch(Exception e){
-            newVal = dNull;
-        }
-        this.dystolic = newVal;
-    }
-
-    public void setSystolic(String sVal) {
-        double newVal;
-        try{
-            newVal = Double.parseDouble(sVal);
-        } catch(Exception e){
-            newVal = dNull;
-        }
-        this.systolic = newVal;
-    }
-
-    public void setPulse(String sVal) {
-        double newVal;
-        try{
-            newVal = Double.parseDouble(sVal);
-        } catch(Exception e){
-            newVal = dNull;
-        }
-        this.pulse = newVal;
-    }
-
-    public String getValString(double val) {
-        String retStr = "";
-        if (val == dNull) {
-            retStr = sNull;
-        } else {
-            retStr = "" + val;
-        }
-        return retStr;
     }
 
     @Override

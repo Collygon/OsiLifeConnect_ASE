@@ -93,10 +93,14 @@ public class MainActivity extends AppCompatActivity {
         Log.d("DASH INTENT", "Intent Generated");
         notificationPackage.getInstance().loginNotify(this);
         startActivity(dashIntent);
-        //execute loginTask
-        //new LoginTask().execute(username, password);
+        new LoginTask().execute(username, password); // handles logging in
     }
 
+    /**
+     * This is executed in the onPostExecute method in LoginTask, after LoginTask attempts to
+     * access database it determines if a patient was successfully found.
+     * @param success A boolean value specifying if the patient was found
+     */
     public void LogIn(boolean success){
         if(success) {
             checkboxAnalysis();
@@ -173,7 +177,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(String... params) {
             String username = params[0], password = params[1], returnMessage = "Login Failed";
-            System.out.println("username: " + username + " paassword: " + password);
+            System.out.println("username: " + username + " password: " + password);
             // Making a request to url and getting response
             String reqUrl = "http://ec2-13-58-1-146.us-east-2.compute.amazonaws.com/patient/readPatient.php";
 
@@ -214,7 +218,6 @@ public class MainActivity extends AppCompatActivity {
                         // Getting JSON Array node
                         JSONArray patients = jsonObj.getJSONArray("patient");
 
-                        // looping through All Contacts
                         for (int i = 0; i < patients.length(); i++) {
                             JSONObject p = patients.getJSONObject(i);
                             String mrn = p.getString("mrn");

@@ -17,42 +17,16 @@ public class WeightScaleDataItem extends SensorDataItem {
         this.weight = weight;
     }
 
-    public WeightScaleDataItem(String MRN, String loginID, String deviceType, String manufacturer,
-                               String modelNumber, String serialNumber, String readingDateTime,
-                               String weight){
-        super(MRN, loginID, deviceType, manufacturer, modelNumber, serialNumber, readingDateTime);
-        this.setDystolic(weight);
-    }
-
 
     public double getWeight() {
         return weight;
     }
 
-    public void setDystolic(String sVal) {
-        double newVal;
-        try {
-            newVal = Double.parseDouble(sVal);
-        } catch (Exception e) {
-            newVal = dNull;
-        }
-        this.weight = newVal;
-    }
-
-    public String getValString(double val) {
-        String retStr = "";
-        if (val == dNull) {
-            retStr = sNull;
-        } else {
-            retStr = "" + val;
-        }
-        return retStr;
-    }
 
     @Override
     public String toString() {
         return  "Weight Scale Data: " + super.toString() +
-                ", weight='" + getValString(this.weight) + '\'' +
+                ", weight='" + this.weight + '\'' +
                 '}';
     }
 
