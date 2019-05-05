@@ -18,15 +18,6 @@ public class BloodPressureDataItem extends SensorDataItem {
         this.pulse = pulse;
     }
 
-    public BloodPressureDataItem(String MRN, String loginID, String deviceType, String manufacturer,
-    String modelNumber, String serialNumber, String readingDateTime,
-    String val1, String val2, String val3) {
-        super(MRN, loginID, deviceType, manufacturer, modelNumber, serialNumber, readingDateTime);
-        this.setDystolic(val1);
-        this.setSystolic(val2);
-        this.setPulse(val3);
-    }
-
     public double getDystolic() {
         return dystolic;
     }
@@ -40,52 +31,12 @@ public class BloodPressureDataItem extends SensorDataItem {
     }
 
 
-    public void setDystolic(String sVal) {
-        double newVal;
-        try{
-            newVal = Double.parseDouble(sVal);
-        } catch(Exception e){
-            newVal = dNull;
-        }
-        this.dystolic = newVal;
-    }
-
-    public void setSystolic(String sVal) {
-        double newVal;
-        try{
-            newVal = Double.parseDouble(sVal);
-        } catch(Exception e){
-            newVal = dNull;
-        }
-        this.systolic = newVal;
-    }
-
-    public void setPulse(String sVal) {
-        double newVal;
-        try{
-            newVal = Double.parseDouble(sVal);
-        } catch(Exception e){
-            newVal = dNull;
-        }
-        this.pulse = newVal;
-    }
-
-    public String getValString(double val) {
-        String retStr = "";
-        if (val == dNull) {
-            retStr = sNull;
-        } else {
-            retStr = "" + val;
-        }
-        return retStr;
-    }
-
     @Override
     public String toString() {
         return  "Blood Pressure Data: " + super.toString() +
-                ", dystolic='" + getValString(this.dystolic) + '\'' +
-                ", systolic='" + getValString(this.systolic) + '\'' +
-                ", pulse='" + getValString(this.pulse) + '\'' +
+                ", dystolic='" + this.dystolic + '\'' +
+                ", systolic='" + this.systolic + '\'' +
+                ", pulse='" + this.pulse + '\'' +
                 '}';
     }
    // public void setDateString(String dateString){this.dateString=dateString;}

@@ -21,6 +21,11 @@ import android.util.Log;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * Much of this code is simply from the Android Studio provided sample
+ * for Bluetooth LE. As such, many of the functions have online documentation
+ * on the Android developer website.
+ */
 // A service that interacts with the BLE device via the Android BLE API.
 public class BluetoothLeService extends Service {
     private final static String TAG = BluetoothLeService.class.getSimpleName();
@@ -99,7 +104,7 @@ public class BluetoothLeService extends Service {
 
 
     private void broadcastUpdate(final String action) {
-        Log.d(TAG, "HELLO!");
+        Log.d(TAG, "HELLO!"); // Just a debug log to see which broadcast was being called
         final Intent intent = new Intent(action);
         sendBroadcast(intent);
     }
@@ -107,7 +112,7 @@ public class BluetoothLeService extends Service {
     private void broadcastUpdate(final String action, final BluetoothGattCharacteristic characteristic) {
         final Intent intent = new Intent(action);
 
-        // This is special handling for the Heart Rate Measurement profile. Data
+        // This is special handling for the Blood Pressure Measurement profile. Data
         // parsing is carried out as per profile specifications.
         Log.d(TAG, "inside broadcastUpdate");
         if (UUID_BLOOD_PRESSURE_MEASUREMENT.equals(characteristic.getUuid())) {
@@ -121,6 +126,10 @@ public class BluetoothLeService extends Service {
                 format = BluetoothGattCharacteristic.FORMAT_UINT8;
                 Log.d(TAG, "Blood Pressure format UINT8.");
             }
+            // This code is from Android's Bluetooth LE sample code and was
+            // simply adjusted to be named for our blood pressure device.
+            // As we never managed to get this part of the code to run
+            // it may very well do nothing or be incorrect.
             final int bloodPressure = characteristic.getIntValue(format, 1);
             Log.d(TAG, String.format("Systolic, Diastolic, MAP: %d", bloodPressure));
             intent.putExtra(EXTRA_DATA, String.valueOf(bloodPressure));

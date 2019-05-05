@@ -27,7 +27,18 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-
+/**
+ * For a given BLE device, this Activity provides the user interface to connect, display data,
+ * and display GATT services and characteristics supported by the device.  The Activity
+ * communicates with {@code BluetoothLeService}, which in turn interacts with the
+ * Bluetooth LE API.
+ *
+ * Currently this activity is set up to display a device's name, MAC address, connectivity status
+ * (connected/disconnected), data, and a list of the services and characteristics it provides.
+ * In this state it is more of a test format to confirm device connection and data reads and is
+ * not user friendly since the user would have to manually pick the correct device
+ * service and characteristic to gather data.
+ */
 public class DeviceControlActivity extends Activity {
     private TextView mConnectionState;
     private TextView mDataField;
@@ -151,6 +162,13 @@ public class DeviceControlActivity extends Activity {
         }
     };
 
+    /**
+     * Listens for a click on the list of device services and characteristics.
+     * This is part of our attempts to get the Bluetooth connection working and
+     * should probably be removed. Preferably the user should not have to search for their
+     * device's service and measurement characteristic to upload their data. That functionality
+     * should happen automatically.
+     */
     private final ExpandableListView.OnChildClickListener servicesListClickListner =
             new ExpandableListView.OnChildClickListener() {
                 @Override
@@ -198,6 +216,7 @@ public class DeviceControlActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // The gatt_services_characteristics view should be removed or replaced.
         setContentView(R.layout.gatt_services_characteristics);
 
         final Intent intent = getIntent();
@@ -240,6 +259,12 @@ public class DeviceControlActivity extends Activity {
         mBluetoothLeService = null;
     }
 
+    /**
+     * Left over from Android Bluetooth LE sample code.
+     * It will probably be more desirable to create a new view.
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.gatt_services, menu);
@@ -253,6 +278,12 @@ public class DeviceControlActivity extends Activity {
         return true;
     }
 
+    /**
+     * Left over from Android Bluetooth LE sample code.
+     * It will probably be more desirable to create a new view.
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {

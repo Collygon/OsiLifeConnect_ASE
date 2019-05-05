@@ -1,12 +1,5 @@
 package com.example.osilifeconnect_ase;
 
-import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothDevice;
-import android.bluetooth.BluetoothManager;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -55,15 +48,11 @@ public class WeightActivity extends AppCompatActivity {
     private RecyclerView recView;
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerView.Adapter adapter;
-    private Set<BluetoothDevice> pairedDevices;
-    private BluetoothLeService bluetoothLeService;
-    private BluetoothAdapter bluetoothAdapter;
     private User user = User.getUser();
 
 
 
     //array lists to hold the dummy data
-
     private List<dummyDataWeight> temp=new ArrayList<>();
     private List<dummyDataWeight> dayList = new ArrayList<>();
     private List<dummyDataWeight> weekList = new ArrayList<>();
@@ -73,60 +62,8 @@ public class WeightActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        if(!getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH_LE)){
-            Toast.makeText(this, R.string.ble_not_supported, Toast.LENGTH_SHORT).show();
-            finish();
-        }
-
-        //Initialize Bluetooth adapter
-        final BluetoothManager bluetoothManager =
-                (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
-        bluetoothAdapter = bluetoothManager.getAdapter();
-        bluetoothLeService = new BluetoothLeService();
-
-        //Checks if Bluetooth is enable
-        //If not says that Bluetooth is disabled and prompts user to change settings
-        if(bluetoothAdapter == null || !bluetoothAdapter.isEnabled()){
-            Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-            int REQUEST_ENABLE_BT = 1;
-            startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
-            finish();
-        }
         setContentView(R.layout.activity_weight);
         new WeightTaskSend().execute();
-
-        //set dummy weights
-        /*
-        weightObj1.setWeightLbs(90.0);
-        weightObj2.setWeightLbs(10.0);
-        weightObj3.setWeightLbs(80.5);
-        weightObj4.setWeightLbs(122.32);
-        weightObj5.setWeightLbs(200.12);
-        weightObj6.setWeightLbs(100.0);
-        */
-        //add dummy vals to lists
-      /*  for(int i=0;i<weightArr.length;i++){
-            dayList.add(weightArr[i]);
-        }*/
-        /*
-        dayList.add(weightObj1);
-        dayList.add(weightObj2);
-        dayList.add(weightObj3);
-        dayList.add(weightObj4);
-        dayList.add(weightObj5);
-        dayList.add(weightObj6);
-        */
-        //weekList.add(temp.get(0));
-        //weekList.add(temp.get(1));
-        //weekList.add(temp.get(2));
-
-       // monthList.add(weightObj1);
-
-       // dummyDataWeight obj=new dummyDataWeight("0000");
-        //obj.setWeightLbs(250);
-        //obj.setWeightKgs(250);
-        //dayList=temp;
 
         recView = findViewById(R.id.my_recycler_view);
         recView.setHasFixedSize(true);
@@ -139,16 +76,13 @@ public class WeightActivity extends AppCompatActivity {
 
     }
 
+    //Function to store data into an array list based of of objects day in the year
     void setDayList(){
         System.out.print("Weight send function");
         dayList=temp;
-        //for(int i=0;i <dayList.size();i++) {
-          //  System.out.println("daylist" + i +": " + dayList.get(i).getWeightLbs());
-       // }
-
-
     }
 
+    //Pull objects sorted by day
     public void getDayData(View view){
         //TODO display day data
         //new WeightTask();
@@ -156,44 +90,21 @@ public class WeightActivity extends AppCompatActivity {
         recView.setAdapter(adapter);
     }
 
+    //Pull objects by week in year
     public void getWeekData(View view) {
         //TODO display week data
 
         adapter = new WeightAdapter(weekList);
         recView.setAdapter(adapter);
     }
+
+    //Pull objects by month
     public void getMonthData(View view){
         //TODO display month data
         adapter = new WeightAdapter(monthList);
         recView.setAdapter(adapter);
     }
 
-    void getPairedDevices(){
-        pairedDevices = bluetoothAdapter.getBondedDevices();
-        if (pairedDevices.size() > 0) {
-            ArrayList<String> deviceList = new ArrayList<>(pairedDevices.size());
-            for (BluetoothDevice bluetoothDevice : pairedDevices) {
-                BluetoothSensorDevice sensorDevice = new BluetoothSensorDevice(bluetoothDevice);
-                deviceList.add(sensorDevice.getLabel());
-            }
-            final String[] deviceArray = deviceList.toArray(new String[0]);
-
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("Select Scale:");
-            builder.setItems(deviceArray, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, final int item) {
-                    BluetoothSensorDevice sensorDevice = BluetoothSensorDevice.fromLabel(deviceArray[item]);
-                    connectToDevice(sensorDevice);
-                }
-            });
-            AlertDialog alert = builder.create();
-            alert.show();
-        }
-    }
-
-    public void connectToDevice(BluetoothSensorDevice sensorDevice) {
-        //this.bluetoothLeService.connectToDevice(this.bluetoothAdapter.getRemoteDevice(sensorDevice.getAddress()));
-    }
     /*
     class WeightTask extends AsyncTask<Void,Void,String>{
        // private final String TAG = WeightActivity.getWeight.class.getSimpleName();

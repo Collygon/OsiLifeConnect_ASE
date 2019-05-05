@@ -34,7 +34,11 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 /**
- * This Activity scans for and displays available BLE devices
+ * This Activity scans for and displays available BLE devices.
+ * Currently it is hardcoded to "filter" for the MAC Address
+ * of the Blood Pressure device with a simple if statement.
+ * Ideally it should probably use an actual ScanFilter instead.
+ *
  */
 public class DeviceScanActivity extends ListActivity {
     private String bpMAC = "64:CF:D9:36:C9:90";
@@ -46,7 +50,7 @@ public class DeviceScanActivity extends ListActivity {
     private ArrayList<BluetoothDevice> leDevices;
 
     private static final int REQUEST_ENABLE_BT = 1;
-    //Stop scanning after 10 sec
+    //Stop scanning after 1 minute
     private static final long SCAN_PERIOD = 60000;
 
     @Override
@@ -80,6 +84,12 @@ public class DeviceScanActivity extends ListActivity {
         }
         leDevices = new ArrayList<BluetoothDevice>();
     }
+
+    /**
+     * These blocks are from Android Bluetooth LE sample code and
+     * were kept around just in case.
+     * As the app currently operates, these can be safely removed.
+     */
     /********
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
@@ -126,7 +136,7 @@ public class DeviceScanActivity extends ListActivity {
     }
 
 
-
+    // part of the LeDeviceListAdapter way of doing things.
     /*@Override
     protected void onListItemClick(ListView l, View v, int position, long id){
         final BluetoothDevice device = leDeviceListAdapter.getDevice(position);
@@ -155,8 +165,6 @@ public class DeviceScanActivity extends ListActivity {
         }
     }
 
-
-    //...
     // Device scan callback.
     private ScanCallback leScanCallback = new ScanCallback() {
         @Override
@@ -171,12 +179,27 @@ public class DeviceScanActivity extends ListActivity {
         }
     };
 
+    /**
+     * Do something with the result grabbed by the Bluetooth Scan.
+     * Currently we grab the device we scanned and try to match its
+     * MAC address as an improvised filter. When we match, the app
+     * connects to the that device (only the Blood Pressure as of now)
+     * and takes the user to the Device Control Activity.
+     *
+     * If the result is not one of the desired devices, the device
+     * is added to the leDevices list but nothing happens.
+     * (To reiterate, a real ScanFilter may be desired to properly ignore
+     * other devices)
+     *
+     * @param result a Bluetooth signal picked up during scan
+     */
     private void processResult(ScanResult result){
+        // Grab device from result
         BluetoothDevice device = result.getDevice();
         Log.d("MAC:", device.getAddress());
+        // Improvised filter. Does the device MAC match our desired device MAC?
         if(device.getAddress().equals(bpMAC)){
             Log.d("Result","processResult: Blood Pressure connected!");
-            BloodPressureDevice.getInstance().setDevice(device);
             Intent bloodIntent = new Intent(this, DeviceControlActivity.class);
             bloodIntent.putExtra(DeviceControlActivity.EXTRAS_DEVICE_NAME, device.getName());
             bloodIntent.putExtra(DeviceControlActivity.EXTRAS_DEVICE_ADDRESS, device.getAddress());
@@ -191,7 +214,13 @@ public class DeviceScanActivity extends ListActivity {
     }
 
 
-    //...
+    /**
+     * Sets up a BluetoothLeScanner and scans for a Bluetooth Low Energy device.
+     * Scan lasts until the assigned SCAN_PERIOD or until some other function
+     * calls scanner.stopScan.
+     *
+     * @param enable set to true or false when the call scanLeDevice() is made;
+     */
     private void scanLeDevice(final boolean enable) {
         if (enable) {
             scanner = bluetoothAdapter.getBluetoothLeScanner();
@@ -213,6 +242,11 @@ public class DeviceScanActivity extends ListActivity {
         }
     }
 
+    /**
+     * A debug function.
+     * Iterates through the list of devices and prints
+     * their names and MAC addresses.
+     */
     private void scanComplete(){
         if(leDeviceListAdapter.getCount() == 0)
             return;
@@ -220,6 +254,17 @@ public class DeviceScanActivity extends ListActivity {
             Log.d("BLE", "Found Device: " + d.getName() +"\n"+ d.getAddress());
     }
 
+
+    /**
+     * The LeDeviceListAdapter is supposed to handle displaying
+     * what devices the scanner picked up during its scan.
+     * A list view would allow the user to pick what device to connect to,
+     * but we could not get this function to work. Instead, the processResult function
+     * automatically connects the user to whichever device they are using since a connection
+     * can only happen once data is being transmitted.
+     *
+     * This code remains in case the original functionality is desired to be worked in.
+     */
     private static class LeDeviceListAdapter extends ArrayAdapter<BluetoothDevice> {
         private LayoutInflater inflater;
 
