@@ -43,7 +43,12 @@ import java.util.List;
 import java.util.Set;
 import java.util.Locale;
 
-
+/**
+ * The Weight Activity retrieves weight data from
+ * the database and displays it to the user. It must feed a list of
+ * data to the Weight Adapter where it will be formatted
+ * for display in the list view.
+ */
 public class WeightActivity extends AppCompatActivity {
     private RecyclerView recView;
     private RecyclerView.LayoutManager layoutManager;

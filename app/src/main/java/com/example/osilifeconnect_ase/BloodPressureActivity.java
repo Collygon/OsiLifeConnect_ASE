@@ -36,6 +36,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+
+/**
+ * The Blood Pressure Activity retrieves blood pressure data from
+ * the database and displays it to the user. It must feed a list of
+ * data to the Blood Pressure Adapter where it will be formatted
+ * for display in the list view.
+ */
 public class BloodPressureActivity extends AppCompatActivity {
 
     private RecyclerView list;

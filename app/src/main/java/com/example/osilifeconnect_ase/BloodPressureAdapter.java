@@ -11,6 +11,11 @@ import com.example.osilifeconnect_ase.DataModels.dummyBloodPressureData;
 
 import java.util.List;
 
+
+/**
+ * The Blood Pressure Adapter handles a list of blood pressure data models
+ * and formats them to be shown in the Blood Pressure Activity recycler view.
+ */
 public class BloodPressureAdapter extends RecyclerView.Adapter<BloodPressureAdapter.MyViewHolder> {
 
     private List<dummyBloodPressureData> dataSet;

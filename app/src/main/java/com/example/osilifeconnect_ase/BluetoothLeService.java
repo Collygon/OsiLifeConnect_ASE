@@ -2,7 +2,6 @@ package com.example.osilifeconnect_ase;
 
 import android.app.Service;
 import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothClass;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothGatt;
 import android.bluetooth.BluetoothGattCallback;
@@ -15,11 +14,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
-import android.os.ParcelUuid;
 import android.util.Log;
 
 import java.util.List;
 import java.util.UUID;
+
+//MOST OF THIS CODE COMES FROM https://github.com/googlesamples/android-BluetoothLeGatt
+//AND MAY REQUIRE THE DISTRIBUTION OF THE APACHE 2.0 LICENSE
 
 /**
  * Much of this code is simply from the Android Studio provided sample
@@ -52,7 +53,7 @@ public class BluetoothLeService extends Service {
             "com.example.bluetooth.le.EXTRA_DATA";
 
     public final static UUID UUID_BLOOD_PRESSURE_MEASUREMENT =
-            UUID.fromString(SampleGattAttributes.BLOOD_PRESSURE_MEASUREMENT);
+            UUID.fromString(GattAttributes.BLOOD_PRESSURE_MEASUREMENT);
 
     // Various callback methods defined by the BLE API.
     private final BluetoothGattCallback gattCallback = new BluetoothGattCallback() {
@@ -301,7 +302,7 @@ public class BluetoothLeService extends Service {
         if (UUID_BLOOD_PRESSURE_MEASUREMENT.equals(characteristic.getUuid())) {
             Log.d(TAG, "UUID_BLOOD_PRESSURE_MEASUREMENT:" + characteristic.getUuid());
             BluetoothGattDescriptor descriptor = characteristic.getDescriptor(
-                    UUID.fromString(SampleGattAttributes.CLIENT_CHARACTERISTIC_CONFIG));
+                    UUID.fromString(GattAttributes.CLIENT_CHARACTERISTIC_CONFIG));
             descriptor.setValue(BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE);
             bluetoothGatt.writeDescriptor(descriptor);
         }

@@ -12,6 +12,10 @@ import com.example.osilifeconnect_ase.DataModels.dummyDataWeight;
 
 import java.util.List;
 
+/**
+ * The Weight Adapter handles a list of weight data models
+ * and formats them to be shown in the Weight Activity recycler view.
+ */
 public class WeightAdapter extends RecyclerView.Adapter<WeightAdapter.WeightViewHolder> {
     private List<dummyDataWeight> weightSet;
 

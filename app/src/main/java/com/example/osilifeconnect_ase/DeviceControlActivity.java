@@ -11,10 +11,6 @@ import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -26,6 +22,9 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+//MOST OF THIS CODE COMES FROM https://github.com/googlesamples/android-BluetoothLeGatt
+//AND MAY REQUIRE THE DISTRIBUTION OF THE APACHE 2.0 LICENSE
 
 /**
  * For a given BLE device, this Activity provides the user interface to connect, display data,
@@ -93,7 +92,7 @@ public class DeviceControlActivity extends Activity {
             HashMap<String, String> currentServiceData =
                     new HashMap<String, String>();
             uuid = gattService.getUuid().toString();
-            currentServiceData.put(LIST_NAME, SampleGattAttributes.lookup(uuid, unknownServiceString));
+            currentServiceData.put(LIST_NAME, GattAttributes.lookup(uuid, unknownServiceString));
             currentServiceData.put(LIST_UUID, uuid);
             gattServiceData.add(currentServiceData);
 
@@ -110,7 +109,7 @@ public class DeviceControlActivity extends Activity {
                 HashMap<String, String> currentCharaData =
                         new HashMap<String, String>();
                 uuid = gattCharacteristic.getUuid().toString();
-                currentCharaData.put(LIST_NAME, SampleGattAttributes.lookup(uuid, unknownCharaString));
+                currentCharaData.put(LIST_NAME, GattAttributes.lookup(uuid, unknownCharaString));
                 currentCharaData.put(LIST_UUID, uuid);
                 gattCharacteristicGroupData.add(currentCharaData);
             }

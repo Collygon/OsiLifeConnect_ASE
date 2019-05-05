@@ -33,6 +33,9 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+//SOME OF THIS CODE COMES FROM https://github.com/googlesamples/android-BluetoothLeGatt
+//AND MAY REQUIRE THE DISTRIBUTION OF THE APACHE 2.0 LICENSE
+
 /**
  * This Activity scans for and displays available BLE devices.
  * Currently it is hardcoded to "filter" for the MAC Address
@@ -82,6 +85,10 @@ public class DeviceScanActivity extends ListActivity {
             startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
             finish();
         }
+
+        //If possible, a check for Location Service should be added as Bluetooth scanning
+        //does not work unless the app has access to Bluetooth and Location Services
+
         leDevices = new ArrayList<BluetoothDevice>();
     }
 

@@ -5,17 +5,17 @@ import java.util.HashMap;
 /**
  * This class includes a small subset of standard GATT attributes for demonstration purposes.
  */
-public class SampleGattAttributes {
+public class GattAttributes {
     private static HashMap<String, String> attributes = new HashMap<>();
     public static String BLOOD_PRESSURE_MEASUREMENT = "00002A35-0000-1000-8000-00805F9B34FB";
     public static String CLIENT_CHARACTERISTIC_CONFIG = "00002902-0000-1000-8000-00805F9B34FB";
 
     static {
-        // Sample Services.
+        // Services.
         attributes.put("00001810-0000-1000-8000-00805F9B34FB", "Blood Pressure Measurement");
         attributes.put("0000180A-0000-1000-8000-00805F9B34FB", "Device Information Service");
         attributes.put("0000181D-0000-1000-8000-00805F9B34FB", "Weight Scale Service");
-        // Sample Characteristics.
+        // Characteristics.
         attributes.put(BLOOD_PRESSURE_MEASUREMENT, "Blood Pressure Measurement");
         attributes.put("Indie Health", "Manufacturer Name String");
         attributes.put("00002A49-0000-1000-8000-00805F9B34FB", "Blood Pressure Feature");
