@@ -58,7 +58,6 @@ public class WeightActivity extends AppCompatActivity {
 
 
     //array lists to hold the dummy data
-
     private List<dummyDataWeight> temp=new ArrayList<>();
     private List<dummyDataWeight> dayList = new ArrayList<>();
     private List<dummyDataWeight> weekList = new ArrayList<>();
@@ -71,38 +70,6 @@ public class WeightActivity extends AppCompatActivity {
         setContentView(R.layout.activity_weight);
         new WeightTaskSend().execute();
 
-        //set dummy weights
-        /*
-        weightObj1.setWeightLbs(90.0);
-        weightObj2.setWeightLbs(10.0);
-        weightObj3.setWeightLbs(80.5);
-        weightObj4.setWeightLbs(122.32);
-        weightObj5.setWeightLbs(200.12);
-        weightObj6.setWeightLbs(100.0);
-        */
-        //add dummy vals to lists
-      /*  for(int i=0;i<weightArr.length;i++){
-            dayList.add(weightArr[i]);
-        }*/
-        /*
-        dayList.add(weightObj1);
-        dayList.add(weightObj2);
-        dayList.add(weightObj3);
-        dayList.add(weightObj4);
-        dayList.add(weightObj5);
-        dayList.add(weightObj6);
-        */
-        //weekList.add(temp.get(0));
-        //weekList.add(temp.get(1));
-        //weekList.add(temp.get(2));
-
-       // monthList.add(weightObj1);
-
-       // dummyDataWeight obj=new dummyDataWeight("0000");
-        //obj.setWeightLbs(250);
-        //obj.setWeightKgs(250);
-        //dayList=temp;
-
         recView = findViewById(R.id.my_recycler_view);
         recView.setHasFixedSize(true);
 
@@ -114,16 +81,13 @@ public class WeightActivity extends AppCompatActivity {
 
     }
 
+    //Function to store data into an array list based of of objects day in the year
     void setDayList(){
         System.out.print("Weight send function");
         dayList=temp;
-        //for(int i=0;i <dayList.size();i++) {
-          //  System.out.println("daylist" + i +": " + dayList.get(i).getWeightLbs());
-       // }
-
-
     }
 
+    //Pull objects sorted by day
     public void getDayData(View view){
         //TODO display day data
         //new WeightTask();
@@ -131,12 +95,15 @@ public class WeightActivity extends AppCompatActivity {
         recView.setAdapter(adapter);
     }
 
+    //Pull objects by week in year
     public void getWeekData(View view) {
         //TODO display week data
 
         adapter = new WeightAdapter(weekList);
         recView.setAdapter(adapter);
     }
+
+    //Pull objects by month
     public void getMonthData(View view){
         //TODO display month data
         adapter = new WeightAdapter(monthList);

@@ -17,11 +17,23 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+/*******************************
+ * This fragment holds the information for getting in contact with Osi Vision.
+ * It displays a google maps view with the address and shows other information,
+ * phone number, email, and website.
+ */
 public class ContactFragment extends Fragment implements OnMapReadyCallback {
 
     SupportMapFragment mapFragment;
     GoogleMap mMap;
 
+    /********************************
+     * Standard create function required by Android Studio.
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

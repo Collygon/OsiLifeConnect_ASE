@@ -11,6 +11,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+/*********************************************
+ * This fragment is used for logging out and displaying relevant user data
+ * Has a logout button, profile image, and physician information.
+ * Methods of setting this information have not yet been implemented.
+ */
 public class ProfileFragment extends Fragment{
 
     private Button logoutButton;
@@ -23,6 +28,9 @@ public class ProfileFragment extends Fragment{
 
         this.logoutButton = v.findViewById(R.id.logoutButton);
 
+        /***************************************************8
+         * Listener for the logout button.
+         */
         logoutButton.setOnClickListener(new View.OnClickListener(){
 
             @Override
@@ -34,6 +42,10 @@ public class ProfileFragment extends Fragment{
         return v;
     }
 
+    /**************************************************
+     * Simply returns the user to the login view.
+     * @param v
+     */
     public void logoutMethod(View v){
         Intent logIntent = new Intent(getActivity(), MainActivity.class);
         Log.d("PROFILE FRAGMENT", "Logging out");

@@ -8,6 +8,10 @@ import android.support.v4.app.NotificationManagerCompat;
 
 import java.util.Date;
 
+/*************************************************
+ * This singleton class uses static variables and functions so it is accessible everywhere.
+ * It contains methods that display notifications.
+ */
 public class notificationPackage {
 
     private static notificationPackage instance = null;
@@ -20,6 +24,10 @@ public class notificationPackage {
         return instance;
     }
 
+    /*************************************************
+     * Displays a notification for logging in.
+     * @param c; context. Corresponds to the Activity that calls this method.
+     */
     public static void loginNotify(Context c){
         Intent intent = new Intent(c, dashboardActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -37,6 +45,10 @@ public class notificationPackage {
         notificationManager.notify(1, nBuilder.build());
     }
 
+    /*************************************************
+     * Displays a notification for connecting to the weight sensor via bluetooth.
+     * @param c; context. Corresponds to the Activity that calls this method.
+     */
     public static void weightBTNotify(Context c){
         Intent intent = new Intent(c, dashboardActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -54,6 +66,10 @@ public class notificationPackage {
         notificationManager.notify(1, nBuilder.build());
     }
 
+    /*************************************************
+     * Displays a notification for when data is read from the weight sensor.
+     * @param c; context. Corresponds to the Activity that calls this method.
+     */
     public static void weightReadNotify(Context c, String lw, String kw, Date d){
         Intent intent = new Intent(c, dashboardActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -75,6 +91,10 @@ public class notificationPackage {
         notificationManager.notify(1, nBuilder.build());
     }
 
+    /*************************************************
+     * Displays a notification for connecting to the blood pressure sensor via bluetooth.
+     * @param c; context. Corresponds to the Activity that calls this method.
+     */
     public static void bloodBTNotify(Context c){
         Intent intent = new Intent(c, dashboardActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -92,6 +112,10 @@ public class notificationPackage {
         notificationManager.notify(1, nBuilder.build());
     }
 
+    /*************************************************
+     * Displays a notification for when data is read from the blood pressure sensor.
+     * @param c; context. Corresponds to the Activity that calls this method.
+     */
     public static void bloodReadNotify(Context c, double dyn, double sys, int pr, Date d){
         Intent intent = new Intent(c, dashboardActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -114,6 +138,10 @@ public class notificationPackage {
         notificationManager.notify(1, nBuilder.build());
     }
 
+    /********************************888
+     * Returns this classes channel ID
+     * @return
+     */
     public static String getChannelId() {
         return CHANNEL_ID;
     }

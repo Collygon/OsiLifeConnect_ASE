@@ -36,13 +36,28 @@ import java.net.URLEncoder;
 
 public class MainActivity extends AppCompatActivity {
 
+    //TextField for the UserName
     private EditText usernameTextField;
+
+    //TextField for the password
     private EditText passwordTextField;
+
+    //Text for alerting the user for failed login attempts
     private TextView alertText;
+
+    //Button the user presses to attempt a login
     private Button loginButton;
+
+    //Variable for keeping track of the users login attempts. Used for alert animations.
     private int loginAttempts = 0;
+
+    //Checkbox to allow the user to save their login info or not
     private CheckBox userCheckBox;
+
+    // Android Studio variable that holds the users login information between app uses
     private SharedPreferences loginPrefs;
+
+    // String to be used by the SharedPreference for storing the user login info
     private static final String PREFS_NAME = "PrefsFile";
 
     @Override
@@ -54,10 +69,16 @@ public class MainActivity extends AppCompatActivity {
 
         loginPrefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
 
+        // Function that sets this activity's view items
         initializeComponents();
 
+        // Retrieves and Sets the users login info using SharedPreferences
         retrievePrefs();
-        //Login Listener START
+
+        /*******************
+         * Listener for the login button.
+         * Waits for the user to select the button, then calls the login function.
+         */
         loginButton.setOnClickListener(new View.OnClickListener(){
 
             @Override
@@ -68,6 +89,12 @@ public class MainActivity extends AppCompatActivity {
         //Login Listener END
     }
 
+    /******************************
+     * Runs at this activity's start.
+     * Checks the stored SharedPreferences to see if the user's login information is stored.
+     * If so, sets the text to hold the corresponding into.
+     * !! There is no encryption currently implemented on these stored strings !!
+     */
     private void retrievePrefs() {
         SharedPreferences retPrefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         if(retPrefs.contains("pref_user_name")){
@@ -85,6 +112,11 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /***************************
+     * Runs when the login button is selected by the user.
+     * Calls other functions to determine whether the app should progress or not.
+     * @param view
+     */
     public void loginMethod(View view){
         String username = usernameTextField.getText().toString();
         String password = passwordTextField.getText().toString();
@@ -118,6 +150,11 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /***************************************
+     * Used to set the users SharedPreferences. This function only runs when the user successfully logs in.
+     * If the checkbox is checked, then the users information is saved in the SharedPreferences.
+     * If not, then the SharedPreferences are cleared entirely.
+     */
     public void checkboxAnalysis(){
         if(userCheckBox.isChecked()){
             boolean remCheck = userCheckBox.isChecked();
@@ -132,10 +169,19 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /************************
+     * Simply function to return, in string format, the text in an edit text box.
+     * @param text
+     * @return String
+     */
     public String getEditText(EditText text){
         return text.getText().toString();
     }
 
+    /******************************************************
+     * Runs upon creation of the activity
+     * Sets the xml items into local variables for function use.
+     */
     public void initializeComponents(){
         this.usernameTextField = findViewById(R.id.usernameTextField);
         this.passwordTextField = findViewById(R.id.passwordTextField);
@@ -144,6 +190,9 @@ public class MainActivity extends AppCompatActivity {
         createNotificationChannel();
     }
 
+    /**************************
+     * Animates the loginAlert text when the user surpasses more than 1 failed login attempt.
+     */
     public void anmLoginAttempt() {
         ObjectAnimator bounce = ObjectAnimator.ofFloat(alertText, "translationY", 0, -25, 0);
         bounce.setStartDelay(10);
@@ -151,6 +200,11 @@ public class MainActivity extends AppCompatActivity {
         bounce.start();
     }
 
+    /*************************
+     * This function must run when the app opens in order for the notifications to work.
+     * Sets a name for the notifications sequence and description.
+     * Accesses the singleton class 'notificationPackage' to establish notifications for global calls.
+     */
     private void createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             CharSequence name = "notifySequence";
