@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
         // Function that sets this activity's view items
         initializeComponents();
 
-        // Retrieves and Sets the users login info
+        // Retrieves and Sets the users login info using SharedPreferences
         retrievePrefs();
 
         /*******************
