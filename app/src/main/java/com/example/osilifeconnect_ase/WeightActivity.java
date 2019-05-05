@@ -1,12 +1,5 @@
 package com.example.osilifeconnect_ase;
 
-import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothDevice;
-import android.bluetooth.BluetoothManager;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -55,9 +48,6 @@ public class WeightActivity extends AppCompatActivity {
     private RecyclerView recView;
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerView.Adapter adapter;
-    private Set<BluetoothDevice> pairedDevices;
-    private BluetoothLeService bluetoothLeService;
-    private BluetoothAdapter bluetoothAdapter;
     private User user = User.getUser();
 
 
@@ -73,26 +63,6 @@ public class WeightActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        if(!getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH_LE)){
-            Toast.makeText(this, R.string.ble_not_supported, Toast.LENGTH_SHORT).show();
-            finish();
-        }
-
-        //Initialize Bluetooth adapter
-        final BluetoothManager bluetoothManager =
-                (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
-        bluetoothAdapter = bluetoothManager.getAdapter();
-        bluetoothLeService = new BluetoothLeService();
-
-        //Checks if Bluetooth is enable
-        //If not says that Bluetooth is disabled and prompts user to change settings
-        if(bluetoothAdapter == null || !bluetoothAdapter.isEnabled()){
-            Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-            int REQUEST_ENABLE_BT = 1;
-            startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
-            finish();
-        }
         setContentView(R.layout.activity_weight);
         new WeightTaskSend().execute();
 
@@ -168,32 +138,6 @@ public class WeightActivity extends AppCompatActivity {
         recView.setAdapter(adapter);
     }
 
-    void getPairedDevices(){
-        pairedDevices = bluetoothAdapter.getBondedDevices();
-        if (pairedDevices.size() > 0) {
-            ArrayList<String> deviceList = new ArrayList<>(pairedDevices.size());
-            for (BluetoothDevice bluetoothDevice : pairedDevices) {
-                BluetoothSensorDevice sensorDevice = new BluetoothSensorDevice(bluetoothDevice);
-                deviceList.add(sensorDevice.getLabel());
-            }
-            final String[] deviceArray = deviceList.toArray(new String[0]);
-
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("Select Scale:");
-            builder.setItems(deviceArray, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, final int item) {
-                    BluetoothSensorDevice sensorDevice = BluetoothSensorDevice.fromLabel(deviceArray[item]);
-                    connectToDevice(sensorDevice);
-                }
-            });
-            AlertDialog alert = builder.create();
-            alert.show();
-        }
-    }
-
-    public void connectToDevice(BluetoothSensorDevice sensorDevice) {
-        //this.bluetoothLeService.connectToDevice(this.bluetoothAdapter.getRemoteDevice(sensorDevice.getAddress()));
-    }
     /*
     class WeightTask extends AsyncTask<Void,Void,String>{
        // private final String TAG = WeightActivity.getWeight.class.getSimpleName();
